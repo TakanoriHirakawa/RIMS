@@ -3,9 +3,9 @@ package com.example.service;
 import org.dozer.Mapper;
 import org.springframework.stereotype.Service;
 
-import com.example.entity.M_SystemUser;
+import com.example.entity.M_User;
 import com.example.form.SignupForm;
-import com.example.repository.SystemUserRepository;
+import com.example.repository.M_UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class SignupService {
 	
 	/**ユーザー情報テーブルDAO(DataAccessObject)*/
-	private final SystemUserRepository repository;
+	private final M_UserRepository repository;
 	
 	/**Dozer Mapper*/
 	private final Mapper mapper;
@@ -33,8 +33,8 @@ public class SignupService {
 	 * @return　登録情報(entity/M_SystemUser)
 	 */
 	
-	public M_SystemUser resistSystemUser(SignupForm form){
-		M_SystemUser userInfo =mapper.map(form, M_SystemUser.class);
+	public M_User resistSystemUser(SignupForm form){
+		M_User userInfo =mapper.map(form, M_User.class);
 		
 		return repository.save(userInfo);
 		
