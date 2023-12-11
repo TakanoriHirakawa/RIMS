@@ -18,7 +18,12 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-		
+		<!--webjars-locator-->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>webjars-locator</artifactId>
+			<version>0.40</version>
+		</dependency>
 		<!--Dozer Mapper-->
 		<!--Dozer…Bean間で同一フィールドが存在する場合にコピー元からコピー先のBean項目へコピーされる。-->
 		<dependency>
@@ -48,7 +53,6 @@
 			<artifactId>bootstrap</artifactId>
 			<version>5.3.2</version>
 		</dependency>
-		<!--webjars-locator-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jdbc</artifactId>

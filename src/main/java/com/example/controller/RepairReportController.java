@@ -12,13 +12,11 @@ public class RepairReportController {
 	
 	@GetMapping("/home")
 	public String getHome() {
-		System.out.println("挙動確認");
 		return "repair_report/home";
 	}
 	
 	@PostMapping("/homePost")
 	public String postHome() {
-		System.out.println("挙動確認");
 		return "repair_report/home";
 	}
 	
