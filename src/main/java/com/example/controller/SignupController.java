@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.entity.M_SystemUser;
+import com.example.entity.M_User;
 import com.example.form.SignupForm;
 import com.example.service.SignupService;
 
@@ -30,7 +30,7 @@ public class SignupController {
 	public void postSignup(Model model, SignupForm form) {
 		
 		//入力情報を取得
-		M_SystemUser userInfo = service.resistSystemUser(form);
+		M_User userInfo = service.resistSystemUser(form);
 		
 	}
 }

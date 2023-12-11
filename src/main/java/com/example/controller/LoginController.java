@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.constant.ErrorMessageConst;
-import com.example.entity.M_SystemUser;
+import com.example.entity.M_User;
 import com.example.form.LoginForm;
 import com.example.service.LoginService;
 import com.example.util.AppUtil;
@@ -39,7 +39,7 @@ public class LoginController {
 		String userId = form.getUserId();
 
 		//ユーザーIDを使ってシステムユーザ情報を検索
-		Optional<M_SystemUser> userInfo = service.searchUserBySystemUserId(userId);
+		Optional<M_User> userInfo = service.searchUserByUserId(userId);
 
 		//システムユーザーが存在する&入力パスワードと該当システムユーザーのパスワードが一致するか
 		//TODO パスワードのハッシュ化
@@ -48,11 +48,11 @@ public class LoginController {
 
 		if (isCorectUserInfo) {
 			//一致した場合、登録情報からシステムユーザ名を取得する（後で変更）
-			form.setUserName(userInfo.get().getSystemUserName());
+			form.setUserName(userInfo.get().getUserName());
 
 			System.out.println("ログインに成功" + form.toString());
 			//ホーム画面へ
-			return "repair_report/home";
+			return "redirect:repair_report/home";
 
 		} else {
 			//一致しない場合はログイン失敗

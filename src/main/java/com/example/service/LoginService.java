@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.example.entity.M_SystemUser;
-import com.example.repository.SystemUserRepository;
+import com.example.entity.M_User;
+import com.example.repository.M_UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -13,13 +13,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LoginService {
 	
-	private final SystemUserRepository repository;
+	private final M_UserRepository repository;
 	
-	public Optional<M_SystemUser> searchUserById(Integer id){
-		return repository.findById(id);
+	public Optional<M_User> searchUserByUserId(String userId){
+		return repository.findByUserId(userId);
 	}
-	
-	public Optional<M_SystemUser> searchUserBySystemUserId(String systemUserId){
-		return repository.findBySystemUserId(systemUserId);
-	};
 }
