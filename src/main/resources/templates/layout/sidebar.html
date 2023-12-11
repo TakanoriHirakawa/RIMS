@@ -1,0 +1,116 @@
+<!-- sidebar.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- css読み込み -->
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	<!-- js読み込み -->
+	<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
+
+	<title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	</title>
+</head>
+
+<body>
+	<nav layout:fragment="sidebar" class="navbar navbar-inverse navbar-fixed-top navbar-dark bg-dark">
+		<!-- カテゴリとサブカテゴリのボタン -->
+		<div class="accordion" id="categoryAccordion">
+
+			<!-- カテゴリ 1 -->
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="category1">
+					<button class="accordion-button" type="button" data-bs-toggle="collapse"
+						data-bs-target="#collapseCategory1" aria-expanded="false" aria-controls="collapseCategory1">
+						修理報告
+					</button>
+				</h2>
+				<div id="collapseCategory1" class="accordion-collapse collapse" aria-labelledby="category1"
+					data-bs-parent="#categoryAccordion">
+					<div class="accordion-body">
+						<form method="post" th:action="@{/repair_report/homePost}">
+							<button type="submit" class="btn btn-light">修理報告</button>
+						</form>
+						<form method="post" th:action="@{/repair_report/estimate}">
+							<button type="submit" class="btn btn-light">見積</button>
+						</form>
+						<form method="post" th:action="@{/repair_report/scrapItemsReport}">
+							<button type="submit" class="btn btn-light">仕損品報告</button>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<!-- カテゴリ 2 -->
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="category2">
+					<button class="accordion-button" type="button" data-bs-toggle="collapse"
+						data-bs-target="#collapseCategory2" aria-expanded="false" aria-controls="collapseCategory2">
+						在庫管理
+					</button>
+				</h2>
+				<div id="collapseCategory2" class="accordion-collapse collapse" aria-labelledby="category2"
+					data-bs-parent="#categoryAccordion">
+					<div class="accordion-body">
+						<form method="post" th:action="@{/inventory/inventory}">
+							<button type="submit" class="btn btn-light">物品データ</button>
+						</form>
+						<form method="post" th:action="@{/inventory/order_items}">
+							<button type="submit" class="btn btn-light">発注</button>
+						</form>
+						<form method="post" th:action="@{/inventory/receiving_items}">
+							<button type="submit" class="btn btn-light">入庫</button>
+						</form>
+						<form method="post" th:action="@{/inventory/register_item}">
+							<button type="submit" class="btn btn-light">物品登録</button>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<!-- カテゴリ 3 -->
+			<div>
+				<form method="post" th:action="@{/repair_report/scrapItemsReport}">
+					<button type="submit" class="btn btn-light">修理履歴</button>
+				</form>
+			</div>
+
+			<!-- カテゴリx
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="category3">
+					<button class="accordion-button" type="button" data-bs-toggle="collapse"
+						data-bs-target="#collapseCategory3" aria-expanded="false" aria-controls="collapseCategory3">
+						カテゴリ名称
+					</button>
+				</h2>
+				<div id="collapseCategory3" class="accordion-collapse collapse" aria-labelledby="category3"
+					data-bs-parent="#categoryAccordion">
+					<div class="accordion-body">
+						<form method="post" th:action="@{/repair_report/homePost}">
+							<button type="submit" class="btn btn-light">ボタン名称</button>
+						</form>
+						<form method="post" th:action="@{/repair_report/estimate}">
+							<button type="submit" class="btn btn-light">ボタン名称</button>
+						</form>
+						<form method="post" th:action="@{/repair_report/scrapItemsReport}">
+							<button type="submit" class="btn btn-light">ボタン名称</button>
+						</form>
+					</div>
+				</div>
+			</div>
+-->
+			<!-- Admin -->
+			<div>
+				<form method="post" th:action="@{/repair_report/scrapItemsReport}">
+					<button type="submit" class="btn btn-light">Admin</button>
+				</form>
+			</div>
+
+		</div>
+	</nav>
+</body>

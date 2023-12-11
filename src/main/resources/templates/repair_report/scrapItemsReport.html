@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head>
+	<meta charset="utf-8">
+</head>
+
+<body>
+	<div layout:fragment="header2" >
+		<h2>&LT;修理履歴&GT;仕損品入力画面</h2>
+	</div>
+	<div layout:fragment="content">
+		<form method="post" th:action="@{/repair_report/homePost}">
+			<input type="submit" value="HOME画面へ" class="btn btn-primary" />
+		</form>
+	</div>
+</body>
+
+</html>
