@@ -1,44 +1,45 @@
+<!--templates/signup/signup.html-->
+
 <!DOCTYPE html>
-<html xmlns="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-	<title>ユーザー</title>
 
 	<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
 	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
 
+	<title>ユーザー登録</title>
 </head>
+
 <body>
-	<h2>ユーザー登録画面</h2>
-	<span th:text="${errorMsg}"></span>
-	<form th:action="@{/signup}" method="post" th:object="${signupForm}">
+	<form method="post" th:action="@{/signup}" th:object="${signupForm}">
+		<h2>ユーザー登録画面</h2>
 		<div>
 			<label>システムユーザーID</label>
-			<input type="text" th:field ="*{userId}">
+			<input type="text" th:field="*{userId}" />
 		</div>
 		<div>
 			<label>パスワード</label>
-			<input type="text" th:field ="*{password}">
+			<input type="text" th:field="*{password}" />
 		</div>
 		<div>
 			<label>名前</label>
-			<input type="text"th:field="*{employeeName}" >
+			<input type="text" th:field="*{userName}" />
 		</div>
 		<div>
 			<label>表示名</label>
-			<input type="text"th:field="*{displayName}" >
+			<input type="text" th:field="*{displayName}" />
 		</div>
-		<!--TODO：登録されている権限から選択できるように修正th:field="*{authorityId}"-->
-		<div>
-			<label>権限</label>
-		</div>
-		<div>
-			<input type="submit" value="ユーザー登録">
-		</div>
+		<label>権限</label>
+		<p>
+			<label><input type="radio" name="authority" th:text="管理者" th:value=1 th:field="${signupForm.fkAuthorityId}" /></label>
+			<label><input type="radio" name="authority" th:text="一般" th:value=2
+					th:field="${signupForm.fkAuthorityId}" /></label>
+		</p>
+		<input type="submit" value="ユーザー登録" />
 	</form>
-	
 </body>
 
 </html>
