@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.constant.ErrorMessageConst;
+import com.example.constant.MessageConst;
 import com.example.entity.M_User;
 import com.example.form.LoginForm;
 import com.example.service.LoginService;
@@ -28,13 +28,15 @@ public class LoginController {
 	private final MessageSource messageSource;
 
 	@GetMapping("/login")
-	public String getLogin(Model model,LoginForm form) {
-		model.addAttribute("loginForm",form);
+	public String getLogin(Model model, LoginForm form) {
+		model.addAttribute("loginForm", form);
 		return "login/login";
 	}
 
 	@PostMapping("/login")
 	public String postLogin(Model model, LoginForm form) {
+		model.addAttribute("loginForm", form);
+		
 		//ログインフォームからユーザーIDを取得
 		String userId = form.getUserId();
 
@@ -57,7 +59,7 @@ public class LoginController {
 		} else {
 			//一致しない場合はログイン失敗
 			//エラーログインエラー時のメッセージを設定。
-			String errorMsg = AppUtil.getMessage(messageSource, ErrorMessageConst.LOGIN_WRONG_INPUT);
+			String errorMsg = AppUtil.getMessage(messageSource, MessageConst.LOGIN_WRONG_INPUT);
 
 			System.out.println("ログインに失敗" + form.toString());
 			model.addAttribute("errorMsg", errorMsg);

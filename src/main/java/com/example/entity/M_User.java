@@ -15,10 +15,11 @@ import lombok.Data;
 @Table(name="m_user")
 @Data
 public class M_User {
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id; 
 	
+	@Id
 	@Column(name="user_id")
 	private String userId;
 	
@@ -31,5 +32,5 @@ public class M_User {
 	private String password;
 	
 	@Column(name="fk_authority_id")
-	private Integer fk_authority_id;
+	private Integer fkAuthorityId;
 }

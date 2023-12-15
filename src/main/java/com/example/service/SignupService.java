@@ -30,10 +30,10 @@ public class SignupService {
 	/**
 	 *システムユーザー情報テーブル
 	 * @param form 入力情報
-	 * @return　登録情報(entity/M_SystemUser)
+	 * @return　登録情報(entity/m_user)
 	 */
 	
-	public M_User resistSystemUser(SignupForm form){
+	public M_User resistUser(SignupForm form){
 		M_User userInfo =mapper.map(form, M_User.class);
 		
 		return repository.save(userInfo);

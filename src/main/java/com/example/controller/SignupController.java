@@ -12,25 +12,31 @@ import com.example.service.SignupService;
 
 import lombok.RequiredArgsConstructor;
 
-
 @Controller
 @RequiredArgsConstructor
 public class SignupController {
-	
+
 	private final SignupService service;
 
 	private final MessageSource messageSource;
 
 	@GetMapping("/signup")
-	public String getSignup(Model model, SignupForm form) {		
+	public String getSignup(Model model, SignupForm form) {
 		return "signup/signup";
 	}
 
 	@PostMapping("/signup")
-	public void postSignup(Model model, SignupForm form) {
-		
+	public String postSignup(Model model, SignupForm form) {
 		//入力情報を取得
-		M_User userInfo = service.resistSystemUser(form);
-		
+		M_User userInfo = service.resistUser(form);
+
+		System.out.println(userInfo.toString());
+
+		//成功時のメッセージを設定。
+//		String successMsg = AppUtil.getMessage(messageSource, MessageConst.SIGN_UP_SUCCESS);
+//
+//		model.addAttribute("signup.success", successMsg);
+
+		return "signup/signup";
 	}
 }
