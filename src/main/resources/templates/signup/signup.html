@@ -16,6 +16,7 @@
 <body>
 	<form method="post" th:action="@{/signup}" th:object="${signupForm}">
 		<h2>ユーザー登録画面</h2>
+		<span th:text="${message}"></span>
 		<div>
 			<label>システムユーザーID</label>
 			<input type="text" th:field="*{userId}" />

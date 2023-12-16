@@ -1,14 +1,18 @@
 package com.example.controller;
 
+import java.util.Optional;
+
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.constant.MessageConst;
 import com.example.entity.M_User;
 import com.example.form.SignupForm;
 import com.example.service.SignupService;
+import com.example.util.AppUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,15 +32,22 @@ public class SignupController {
 	@PostMapping("/signup")
 	public String postSignup(Model model, SignupForm form) {
 		//入力情報を取得
-		M_User userInfo = service.resistUser(form);
+		Optional<M_User> userInfoOpt = service.resistUser(form);
 
-		System.out.println(userInfo.toString());
-
-		//成功時のメッセージを設定。
-//		String successMsg = AppUtil.getMessage(messageSource, MessageConst.SIGN_UP_SUCCESS);
-//
-//		model.addAttribute("signup.success", successMsg);
-
+		var message = AppUtil.getMessage(messageSource, this.judgeMessageKey(userInfoOpt));
+		//エラーメッセージの格納
+		model.addAttribute("message", message);
 		return "signup/signup";
 	}
+
+	/**
+	 * @param userInfoIot
+	 * */
+	private String judgeMessageKey(Optional<M_User> userInfoOpt) {
+		if (userInfoOpt.isEmpty()) {
+			return MessageConst.SIGN_UP_EXISTED_ID;
+		}
+		return MessageConst.SIGN_UP_SUCCESS;
+	}
+
 }

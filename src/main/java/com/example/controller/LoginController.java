@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.util.Locale;
 import java.util.Optional;
 
 import org.springframework.context.MessageSource;
@@ -49,8 +50,6 @@ public class LoginController {
 				&& form.getPassword().equals(userInfo.get().getPassword());
 
 		if (isCorectUserInfo) {
-			//一致した場合、登録情報からシステムユーザ名を取得する（後で変更）
-			form.setUserName(userInfo.get().getUserName());
 
 			System.out.println("ログインに成功" + form.toString());
 			//ホーム画面へ
@@ -59,7 +58,7 @@ public class LoginController {
 		} else {
 			//一致しない場合はログイン失敗
 			//エラーログインエラー時のメッセージを設定。
-			String errorMsg = AppUtil.getMessage(messageSource, MessageConst.LOGIN_WRONG_INPUT);
+			String errorMsg = AppUtil.getMessage(messageSource, MessageConst.LOGIN_WRONG_INPUT,Locale.getDefault());
 
 			System.out.println("ログインに失敗" + form.toString());
 			model.addAttribute("errorMsg", errorMsg);

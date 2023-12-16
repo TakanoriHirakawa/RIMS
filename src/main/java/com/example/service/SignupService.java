@@ -1,5 +1,7 @@
 package com.example.service;
 
+import java.util.Optional;
+
 import org.dozer.Mapper;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +19,13 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class SignupService {
-	
+
 	/**ユーザー情報テーブルDAO(DataAccessObject)*/
 	private final M_UserRepository repository;
-	
+
 	/**Dozer Mapper*/
 	private final Mapper mapper;
-	
+
 	//TODO：パスワードのハッシュ化
 	//private final PasswordEncoder passwordEncoder;
 
@@ -32,11 +34,17 @@ public class SignupService {
 	 * @param form 入力情報
 	 * @return　登録情報(entity/m_user)
 	 */
-	
-	public M_User resistUser(SignupForm form){
-		M_User userInfo =mapper.map(form, M_User.class);
+
+	public Optional<M_User> resistUser(SignupForm form) {
 		
-		return repository.save(userInfo);
+		var userInfoExisted = repository.findByUserId(form.getUserId());
+		//既に登録済みのuserがいる場合
+		if (userInfoExisted.isPresent()) {
+			return Optional.empty();
+		}
+		M_User userInfo = mapper.map(form, M_User.class);
 		
+		return Optional.of(repository.save(userInfo));
+
 	}
 }
