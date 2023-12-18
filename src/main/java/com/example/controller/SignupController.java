@@ -5,10 +5,12 @@ import java.util.Optional;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.constant.MessageConst;
+import com.example.constant.SignupMessage;
 import com.example.entity.M_User;
 import com.example.form.SignupForm;
 import com.example.service.SignupService;
@@ -30,24 +32,32 @@ public class SignupController {
 	}
 
 	@PostMapping("/signup")
-	public String postSignup(Model model, SignupForm form) {
+	public String postSignup(Model model, @Validated SignupForm form, BindingResult bdResult) {
+		if(bdResult.hasErrors()) {
+			return "signup/signup" ;
+		}
 		//入力情報を取得
 		Optional<M_User> userInfoOpt = service.resistUser(form);
-
-		var message = AppUtil.getMessage(messageSource, this.judgeMessageKey(userInfoOpt));
+		SignupMessage messageBind = judgeMessageKey(userInfoOpt);
+		var message = AppUtil.getMessage(messageSource, messageBind.getMessageId());
 		//エラーメッセージの格納
 		model.addAttribute("message", message);
-		return "signup/signup";
+		model.addAttribute("isError", messageBind.isError());
+		
+		return "redirect:/login";
 	}
 
 	/**
-	 * @param userInfoIot
+	 * ユーザー情報登録の結果メッセージキーを判断する
+	 * @param userInfoOpt ユーザー登録結果（登録済みIDの場合は、Empty）
+	 * @retunn SignupMessage messageKeyと登録成否のバインド（falseで成功）
 	 * */
-	private String judgeMessageKey(Optional<M_User> userInfoOpt) {
+
+	private SignupMessage judgeMessageKey(Optional<M_User> userInfoOpt) {
 		if (userInfoOpt.isEmpty()) {
-			return MessageConst.SIGN_UP_EXISTED_ID;
+			return SignupMessage.EXISTED_ID;
 		}
-		return MessageConst.SIGN_UP_SUCCESS;
+		return SignupMessage.SUCCEED;
 	}
 
 }
