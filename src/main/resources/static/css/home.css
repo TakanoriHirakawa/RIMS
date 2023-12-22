@@ -1,0 +1,23 @@
+@charset "UTF-8";
+/*/Original_RIMS/src/main/resources/static/css/home.css*/
+form-pair{
+   display: flex;
+   align-items:center;
+   margin-bottom: 10px;
+}
+
+form-pair dt {
+    width: 100px;
+    padding: 10px 0;
+    float: left;
+    clear: both;
+}
+
+form-pair  dd{
+    padding: 10px 0;
+}
+
+textarea{
+	width: 100px;
+	height: 100px;
+}

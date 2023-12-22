@@ -5,6 +5,32 @@
 
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>home</title>
+
+	<style>
+		#child1 {
+			background-color: lightgoldenrodyellow;
+		}
+
+		#child2 {
+			background-color: lightgoldenrodyellow;
+		}
+
+		@media (min-width: 600px) {
+			#parent {
+				display: flex;
+			}
+
+			#child1 {
+				flex-grow: 1;
+			}
+
+			#child2 {
+				flex-grow: 1;
+			}
+		}
+	</style>
 </head>
 
 <body>
@@ -12,17 +38,98 @@
 		<h2>&LT;修理履歴&GT;基本情報入力画面（ホーム）</h2>
 	</div>
 	<div layout:fragment="content">
-		<div class="btn-group">
-			<form>
+		<div style="display:inline-flex">
+			<form style="padding:5px">
 				<input type="button" value="入力内容削除" class="btn btn-primary" />
 			</form>
-			<form method="post" th:action="@{/repair_report/usedItemsReport}">
+			<form style="padding:5px" method="post" th:action="@{/repair_report/usedItemsReport}">
 				<input type="submit" value="使用部品入力画面へ" class="btn btn-primary" />
 			</form>
 		</div>
-		
-		<div>
-			<a></a>
+
+		<div class="btn-group" id="parent">
+			<div id="child1">
+				<!--基本情報の入力欄-->
+				<form>
+					<table>
+						<tr>
+							<th><label for="userDropdown">担当者</label></th>
+							<td>
+								<select id="userDoropdown" name="selectedUser">
+									<option th:each="user : ${userList}" th:value="${user.userId}"th:text="${user.displayName}"></option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th>契約名称</th>
+							<td><input type="text" /></td>
+						</tr>
+						<tr>
+							<th>製品名</th>
+							<td><input type="text" /></td>
+						</tr>
+						<tr>
+							<th>担当者名</th>
+							<td><input type="text" /></td>
+						</tr>
+						<tr>
+							<th>修理管理番号</th>
+							<td><input type="text" /></td>
+						</tr>
+						<tr>
+							<th>機番</th>
+							<td><input type="text" /></td>
+						</tr>
+						<tr>
+							<th>依頼日</th>
+							<td><input type="date" /></td>
+						</tr>
+						<tr>
+							<th>完了日</th>
+							<td><input type="date" /></td>
+						</tr>
+						<tr>
+							<th>納期日</th>
+							<td><input type="date" /></td>
+						</tr>
+						<tr>
+							<th>修理依頼内容</th>
+							<td><textarea class="message"></textarea></td>
+						</tr>
+						<tr>
+							<th>実機の現象</th>
+							<td><textarea class="message"></textarea></td>
+						</tr>
+						<tr>
+							<th>再現性</th>
+							<td>
+								<input type="radio" name="reproducibility" th:text="再現" />
+								<input type="radio" name="reproducibility" th:text="未再現" />
+								<input type="radio" name="reproducibility" th:text="その他" />
+							</td>
+						</tr>
+						<tr>
+							<th>修理実施内容</th>
+							<td><textarea class="message"></textarea></td>
+						</tr>
+						<tr>
+							<th>修理区分</th>
+							<td>
+								<input type="radio" name="classification" th:text="完了" />
+								<input type="radio" name="classification" th:text="未修理" />
+								<input type="radio" name="classification" th:text="見積" />
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div id="child2">
+				<div>
+					<!--TODO:契約に応じた内容が表示されるように変更-->
+					<label>適用オプション１</label>
+					<input type="checkbox" />
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

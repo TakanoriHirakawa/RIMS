@@ -10,6 +10,10 @@
 	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
 	<!-- css読み込み -->
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+
+	<!--	個別CSS読込-->
+	<link rel="stylesheet" th:href="@{/static/css/home.css}">
+
 	<title></title>
 </head>
 
@@ -23,7 +27,7 @@
 				<div layout:replace="~{layout/sidebar::sidebar}">
 				</div>
 			</nav>
-		<!-- ヘッダー2 --><!-- コンテンツ -->
+			<!-- ヘッダー2 --><!-- コンテンツ -->
 			<div class="col-sm-8  main">
 				<div layout:replace="~{layout/header2::header2}"></div>
 				<div layout:fragment="content"></div>

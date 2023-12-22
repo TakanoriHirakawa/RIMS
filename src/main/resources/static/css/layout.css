@@ -1,0 +1,21 @@
+@charset "UTF-8";
+/* layout.css */
+
+.container {
+	width: 100%;
+	display: flex;
+}
+
+.body {
+	width: 80%
+}
+
+.side {
+	width: 20%
+}
+
+@media (max-width:600px) {
+	side {
+		width: 150px;
+	}
+}

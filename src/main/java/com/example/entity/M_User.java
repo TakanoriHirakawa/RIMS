@@ -9,7 +9,12 @@ import jakarta.persistence.Table;
 import lombok.Data;
 /**
  * m_userのEntiryクラス
- * idは自動連番生成
+ * @param id：連番(自動生成)
+ * @param userId：ユーザーID（主キー）
+ * @param userName：ユーザー名
+ * @param displayName：表示名
+ * @param password：パスワード
+ * @param fkAuthorityId：m_authorityの主キー（権限テーブル主キー）（外部キー）
  * */
 @Entity
 @Table(name="m_user")

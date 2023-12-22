@@ -9,17 +9,18 @@
 	<title>ユーザー登録</title>
 
 	<!-- Bootstrap CSS -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+	<!--	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"-->
+	<!--		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">-->
+	<!--	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">-->
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}">
 
-	<!-- jQuery -->
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js" defer></script>
+	<!--	 jQuery -->
+	<!--	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js" defer></script>-->
 
-	<!-- Bootstrap JS -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" defer></script>
-<!--TODO:要修正bootstrapの反映-->
-	<script src="https://www.thymeleaf.org/js/thymeleaf.js" defer></script>
+	<!--	 Bootstrap JS -->
+	<!--	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" defer></script>-->
+	<!--TODO:要修正bootstrapの反映-->
+	<!--	<script src="https://www.thymeleaf.org/js/thymeleaf.js" defer></script>-->
 
 </head>
 
@@ -53,7 +54,7 @@
 			<label>システムユーザーID</label>
 			<input type="text" th:field="*{userId}" />
 		</div>
-		<span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></span>
+		<span class="text-danger" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></span>
 		<div>
 			<label>パスワード</label>
 			<input type="text" th:field="*{password}" />
@@ -63,21 +64,26 @@
 			<label>名前</label>
 			<input type="text" th:field="*{userName}" />
 		</div>
-		<span class="text-danger"th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></span>
+		<span class="text-danger" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></span>
 		<div>
 			<label>表示名</label>
 			<input type="text" th:field="*{displayName}" />
 		</div>
-	<span class="text-danger" th:if="${#fields.hasErrors('displayName')}" th:errors="*{displayName}"></span>
+		<span class="text-danger" th:if="${#fields.hasErrors('displayName')}" th:errors="*{displayName}"></span>
 		<label>権限</label>
 		<p>
-			<label><input type="radio" name="authority" th:text="管理者" th:value=1 th:field="${signupForm.fkAuthorityId}" /></label>
-			<label><input type="radio" name="authority" th:text="一般" th:value=2 th:field="${signupForm.fkAuthorityId}" /></label>
+			<label><input type="radio" name="authority" th:text="管理者" th:value=1
+					th:field="${signupForm.fkAuthorityId}" /></label>
+			<label><input type="radio" name="authority" th:text="一般" th:value=2
+					th:field="${signupForm.fkAuthorityId}" /></label>
 		</p>
 		<input type="submit" value="ユーザー登録" />
 	</form>
 
 	<a th:href="@{/login}">▶ログイン画面へ戻る</a>
+
+	<script th:src="@{/webjars/jquery/3.7.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/5.3.2/js/bootstrap.min.js}"></script>
 </body>
 
 </html>

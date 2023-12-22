@@ -14,5 +14,5 @@ public class LoginForm {
 	private final String userName;
 	private final String displayName;
 	private final String password;
-	private final Integer fkauthorityId;
+	private final Integer fkAuthorityId;
 }
