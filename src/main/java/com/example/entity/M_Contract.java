@@ -27,7 +27,7 @@ public class M_Contract {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 	@Column(name="contract_id")
-	private Integer contractId;
+	private String contractId;
 	@Column(name="contract_name")
 	private String contractName;
 	@Column(name="basic_fee")
@@ -37,4 +37,5 @@ public class M_Contract {
 	@Column(name="estimate_fee")
 	private Integer estimateFee;
 	private String remarks;
+	
 }

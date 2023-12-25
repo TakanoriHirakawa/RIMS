@@ -7,30 +7,12 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>home</title>
+	
+	<!--css個別読込-->
+	<script th:src="@{/css/home.css}"></script>
 
-	<style>
-		#child1 {
-			background-color: lightgoldenrodyellow;
-		}
-
-		#child2 {
-			background-color: lightgoldenrodyellow;
-		}
-
-		@media (min-width: 600px) {
-			#parent {
-				display: flex;
-			}
-
-			#child1 {
-				flex-grow: 1;
-			}
-
-			#child2 {
-				flex-grow: 1;
-			}
-		}
-	</style>
+	<!--js個別読込-->
+	<script th:src="@{/js/repairingHome.js}"></script>
 </head>
 
 <body>
@@ -55,19 +37,26 @@
 						<tr>
 							<th><label for="userDropdown">担当者</label></th>
 							<td>
-								<select id="userDoropdown" name="selectedUser">
+								<select id="userDropdown" name="selectedUser">
 									<option th:each="user : ${userList}" th:value="${user.userId}"th:text="${user.displayName}"></option>
 								</select>
 							</td>
 						</tr>
 						<tr>
-							<th>契約名称</th>
-							<td><input type="text" /></td>
+							<th><label for ="contractDropdown">契約名称</label></th>
+							<td>
+								<select id="contractDropdown" name="selectedContractId">
+									<option th:each="contract : ${contractList}" th:value="${contract.id}" th:text="${contract.contractName}"></option>
+								</select>
+							</td>
 						</tr>
 						<tr>
-							<th>製品名</th>
-							<td><input type="text" /></td>
+							<!--契約名称の選択内容に応じた表示に変更したい-->
+							<th><label for ="productDropdown" >製品名</th>
+							<td><select id="productDropdown" name="selectedProduct"></select></td>
 						</tr>
+<!--以下略-->
+
 						<tr>
 							<th>担当者名</th>
 							<td><input type="text" /></td>

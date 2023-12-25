@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--/resources/com/example/Mapper/TargetProductsMapper.xml -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.Mapper.TargetProductsMapper">
+	<select id="getListFilteredBySelectedContractId"
+		resultType="java.util.Map">
+		SELECT mp.*
+		FROM m_product mp
+		INNER JOIN target_products tp ON mp.id = tp.fk_product_id
+		INNER JOIN m_contract mc ON tp.fk_contract_id = mc.id
+		WHERE mc.id = #{selectedContractId}
+	</select>
+
+</mapper>

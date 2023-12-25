@@ -8,7 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.entity.M_Contract;
+import com.example.entity.M_Product;
 import com.example.entity.M_User;
 import com.example.service.RepairingService;
 
@@ -23,12 +27,31 @@ public class RepairReportController {
 
 	@GetMapping("/home")
 	public String getHome(Model model) {
+		/*ユーザー一覧取得*/
 		List<M_User> userList = service.getUserList();
+		/*契約一覧取得*/
+		List<M_Contract>contractList=service.getContractList();
+		/*製品一覧取得*/
+		List<M_Product>productList=service.getProductList();
+		/*各取得内容をmodelに格納*/
 		model.addAttribute("userList",userList);
-		
+		model.addAttribute("contractList", contractList);
+		model.addAttribute("productList",productList);
 		return "repair_report/home";
 	}
-
+	
+	@GetMapping("/getProductsByContractId")
+	@ResponseBody
+  public List<M_Product>getProductsByContractId(@RequestParam("selectedContractId")Integer selectedContractId){
+		System.out.println("-----");
+		System.out.println("selectedContractId Result: " + selectedContractId);
+	  List<M_Product>filteredProducts= service.getListFilteredByContractId(selectedContractId);
+		System.out.println("-----");
+		System.out.println("getListFilteredByContractId Result: " + filteredProducts);
+		  
+	  return filteredProducts;
+  }
+  
 	@PostMapping("/homePost")
 	public String postHome() {
 		return "repair_report/home";

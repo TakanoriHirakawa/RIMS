@@ -26,6 +26,6 @@ public class M_Product {
 	@Column(name="product_name")
 	private String productName;
 	@Column(name="product_id")
-	private Integer productId;
-
+	private String productId;
+	
 }
