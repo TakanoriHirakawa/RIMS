@@ -8,44 +8,43 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
 	<title>RIMSログイン画面</title>
 
-	<!-- Bootstrap CSS -->
-<!--	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"-->
-<!--		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
-<!--	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">-->
-	
-<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
-<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
+	 <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <script src="https://www.thymeleaf.org/js/thymeleaf.js" defer></script> 
+
+    <!-- jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js" defer></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" defer></script>
 
 </head>
 
 <body class="bg-light">
-	<div class="text-center">
-
-		<form method="post" th:action="@{/login}"  th:object="${loginForm}" class="form-login">
+	<div class="text-center " >
+		<form method="post" th:action="@{/login}" th:object="${loginForm}" class="form-login">
 			<h1>
 				<span style="font-size: 28px;">RIMS</span><br>
 				<span style="font-size: 18px;">～Repairing and Inventory Management System～</span>
 			</h1>
-
 			<!--ユーザーID-->
 			<div class="form-group">
 				<label for="userId" class="sr-only">userId</label>
 				<input type="text" th:field="*{userId}" class="form-control" placeholder="ユーザーID" name="userId" />
 			</div>
-			
 			<!--パスワード-->
 			<div class="form-group">
 				<label for="password" class="sr-only">password</label>
-				<input type="password" th:field="*{password}" class="form-control" placeholder="パスワード"name="password" />
+				<input type="password" th:field="*{password}" class="form-control" placeholder="パスワード"
+					name="password" />
 			</div>
 			<input type="submit" value="ログイン" class="btn btn-primary" />
-			
 			<!--ログインエラーメッセージ-->
 			<span th:text="${errorMsg}" class="text-danger"></span><br>
 		</form>
-		<a th:href="@{/signup}">ユーザー登録</a>
-		
+		<a th:href="@{/signup}">▶ユーザー登録</a>
 	</div>
 </body>
-
 </html>

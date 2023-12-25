@@ -10,9 +10,9 @@ import lombok.Data;
 
 @Data
 public class LoginForm {
-	private String userId;
-	private String userName;
-	private String displayName;
-	private String password;
-	private Integer fk_authorityId;
+	private final String userId;
+	private final String userName;
+	private final String displayName;
+	private final String password;
+	private final Integer fkAuthorityId;
 }

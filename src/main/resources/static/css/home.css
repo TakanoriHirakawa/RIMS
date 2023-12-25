@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+/*/Original_RIMS/src/main/resources/static/css/home.css*/
+form-pair {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+form-pair dt {
+	width: 100px;
+	padding: 10px 0;
+	float: left;
+	clear: both;
+}
+
+form-pair dd {
+	padding: 10px 0;
+}
+
+textarea {
+	width: 100px;
+	height: 100px;
+}
+
+#child1 {
+	background-color: lightgoldenrodyellow;
+}
+
+#child2 {
+	background-color: lightgoldenrodyellow;
+}
+
+@media (min-width: 600px) {
+	#parent {
+		display: flex;
+	}
+
+	#child1 {
+		flex-grow: 1;
+	}
+
+	#child2 {
+		flex-grow: 1;
+	}
+}
