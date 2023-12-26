@@ -6,11 +6,11 @@ import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.Mapper.TargetProductsMapper;
 import com.example.entity.M_Contract;
 import com.example.entity.M_Product;
 import com.example.entity.M_User;
 import com.example.entity.TargetProducts;
+import com.example.mapper.TargetProductsMapper;
 import com.example.repository.M_ContractRepository;
 import com.example.repository.M_ProductRepository;
 import com.example.repository.M_UserRepository;
