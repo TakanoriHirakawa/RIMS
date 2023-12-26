@@ -43,13 +43,7 @@ public class RepairReportController {
 	@GetMapping("/getProductsByContractId")
 	@ResponseBody
   public List<M_Product>getProductsByContractId(@RequestParam("selectedContractId")Integer selectedContractId){
-		System.out.println("-----");
-		System.out.println("selectedContractId Result: " + selectedContractId);
-	  List<M_Product>filteredProducts= service.getListFilteredByContractId(selectedContractId);
-		System.out.println("-----");
-		System.out.println("getListFilteredByContractId Result: " + filteredProducts);
-		  
-	  return filteredProducts;
+	  return service.getListFilteredByContractId(selectedContractId);
   }
   
 	@PostMapping("/homePost")
