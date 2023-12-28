@@ -52,9 +52,6 @@ public class RepairReportController {
 	public LocalDate calcDeadLineDate(
 			@RequestParam("requestDate") LocalDate requestDate,
 			@RequestParam("selectedContractId") Integer selectedContractId) {
-		System.out.println("-----");
-		System.out.println("取得した依頼日"+requestDate);
-		System.out.println("取得した契約ID"+selectedContractId);
 
 		//selectedContractIdに応じたdeadLineDateを返す処理
 		Integer result = service.getLeadTimeById(selectedContractId);
