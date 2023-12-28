@@ -7,8 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.entity.M_Contract;
 
 public interface M_ContractRepository extends JpaRepository<M_Contract, Integer>{
-	/**idによる検索*/
+	/**idによる一件検索*/
 	Optional<M_Contract>findById(Integer id);
-	/**契約名称による検索*/
+	/**契約名称による一件検索*/
 	Optional<M_Contract>findByContractName(String contractName);
+	
 	}

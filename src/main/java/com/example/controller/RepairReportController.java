@@ -1,6 +1,7 @@
 
 package com.example.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -30,22 +31,36 @@ public class RepairReportController {
 		/*ユーザー一覧取得*/
 		List<M_User> userList = service.getUserList();
 		/*契約一覧取得*/
-		List<M_Contract>contractList=service.getContractList();
+		List<M_Contract> contractList = service.getContractList();
 		/*製品一覧取得*/
-		List<M_Product>productList=service.getProductList();
+		List<M_Product> productList = service.getProductList();
 		/*各取得内容をmodelに格納*/
-		model.addAttribute("userList",userList);
+		model.addAttribute("userList", userList);
 		model.addAttribute("contractList", contractList);
-		model.addAttribute("productList",productList);
+		model.addAttribute("productList", productList);
 		return "repair_report/home";
 	}
-	
+
 	@GetMapping("/getProductsByContractId")
 	@ResponseBody
-  public List<M_Product>getProductsByContractId(@RequestParam("selectedContractId")Integer selectedContractId){
-	  return service.getListFilteredByContractId(selectedContractId);
-  }
-  
+	public List<M_Product> getProductsByContractId(@RequestParam("selectedContractId") Integer selectedContractId) {
+		return service.getListFilteredByContractId(selectedContractId);
+	}
+
+	@GetMapping("/calcDeadLineDateByContractId")
+	@ResponseBody
+	public LocalDate calcDeadLineDate(
+			@RequestParam("requestDate") LocalDate requestDate,
+			@RequestParam("selectedContractId") Integer selectedContractId) {
+		System.out.println("-----");
+		System.out.println("取得した依頼日"+requestDate);
+		System.out.println("取得した契約ID"+selectedContractId);
+
+		//selectedContractIdに応じたdeadLineDateを返す処理
+		Integer result = service.getLeadTimeById(selectedContractId);
+		return requestDate.plusDays(result);
+	}
+
 	@PostMapping("/homePost")
 	public String postHome() {
 		return "repair_report/home";

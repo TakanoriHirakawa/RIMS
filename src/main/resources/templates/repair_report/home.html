@@ -51,17 +51,9 @@
 							</td>
 						</tr>
 						<tr>
-							<!--契約名称の選択内容に応じた表示に変更したい-->
 							<th><label for ="productDropdown" >製品名</th>
 							<td><select id="productDropdown" name="selectedProduct"></select></td>
 						</tr>
-<!--以下略-->
-
-						<tr>
-							<th>担当者名</th>
-							<td><input type="text" /></td>
-						</tr>
-						<tr>
 							<th>修理管理番号</th>
 							<td><input type="text" /></td>
 						</tr>
@@ -71,15 +63,15 @@
 						</tr>
 						<tr>
 							<th>依頼日</th>
-							<td><input type="date" /></td>
+							<td><input type="date" id="requestDate"/></td>
 						</tr>
 						<tr>
 							<th>完了日</th>
-							<td><input type="date" /></td>
+							<td><input type="date" id="completionDate"/></td>
 						</tr>
 						<tr>
 							<th>納期日</th>
-							<td><input type="date" /></td>
+							<td><input type="date" id="deadLineDate"/></td>
 						</tr>
 						<tr>
 							<th>修理依頼内容</th>
@@ -112,12 +104,12 @@
 					</table>
 				</form>
 			</div>
-			<div id="child2">
-				<div>
-					<!--TODO:契約に応じた内容が表示されるように変更-->
-					<label>適用オプション１</label>
-					<input type="checkbox" />
-				</div>
+<!--			<div id="child2">-->
+<!--				<div>-->
+<!--					TODO:契約に応じた内容が表示されるように変更-->
+<!--					<label>適用オプション１</label>-->
+<!--					<input type="checkbox" />-->
+<!--				</div>-->
 			</div>
 		</div>
 	</div>

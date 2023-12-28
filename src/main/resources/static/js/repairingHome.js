@@ -3,7 +3,15 @@
  * /Original_RIMS/src/main/resources/static/js/repairingHome.js
  */
 window.onload = function() {
-	// 契約名称の選択が変更されたときの処理
+	//①完了日にデフォルトで当日を入力する処理
+	var today = new Date();
+	today.setDate(today.getDate());
+	var yyyy = today.getFullYear();
+	var mm = ("0" + (today.getMonth() + 1)).slice(-2);
+	var dd = ("0" + today.getDate()).slice(-2);
+	document.getElementById("completionDate").value = yyyy + '-' + mm + '-' + dd;
+
+	//② 契約名称の選択が変更されたときの処理
 	var contractDropdown = document.getElementById('contractDropdown');
 	var productDropdown = document.getElementById('productDropdown');
 
@@ -46,4 +54,41 @@ window.onload = function() {
 			}
 		});
 	}
-};
+
+	//③依頼日が入力されたら選択されている契約内容に応じた納期日を返す処理
+	var requestDate = document.getElementById('requestDate')
+
+	if (requestDate && contractDropdown) {
+		requestDate.addEventListener('change', function() {
+			var selectedContractId = contractDropdown.value;
+			var inputValue = requestDate.value;
+			updateDeadLineDate(inputValue,selectedContractId);
+		});
+
+
+		function updateDeadLineDate( requestDate,selectedContractId) {
+			console.log('依頼日'+requestDate);
+			console.log('依頼日'+selectedContractId);
+			
+			$.ajax({
+				type: 'GET',
+				url: '/repair_report/calcDeadLineDateByContractId',
+				data: {
+					selectedContractId: selectedContractId,
+					requestDate: requestDate
+				},
+				success: function(data) {
+				var resultDate = data
+					console.log(resultDate)
+
+					//取得したデータを使ってdeadLineDateを更新
+					var deadLineDate = document.getElementById('deadLineDate');
+					deadLineDate.value = resultDate;
+				},
+				error: function() {
+					console.error('Failed to retrieve products.');
+				}
+			});
+		}
+	}
+}

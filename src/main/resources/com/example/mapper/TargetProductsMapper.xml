@@ -13,5 +13,10 @@
 		INNER JOIN m_contract mc ON tp.fk_contract_id = mc.id
 		WHERE mc.id = #{selectedContractId}
 	</select>
+	
+<!-- 	<select id="getOptionsFilteredBySelectedContractId" -->
+<!-- 		result Type ="java.util.Map"> -->
+		
+<!-- 	</select> -->
 
 </mapper>
