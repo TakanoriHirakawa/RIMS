@@ -1,8 +1,8 @@
 package com.example.service;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,9 +42,7 @@ public class RepairingService {
 	
 	/**inventoryテーブルDAO*/
 	//private final InventoryRepository inventoryRepository;
-
-	/**Dozer Mappaer*/
-	private final Mapper mapper;
+	
 	/**
 	 * m_userテーブルから全情報を取得*/
 	public List<M_User> getUserList() {
@@ -74,16 +72,19 @@ public class RepairingService {
 	public List<M_Product> getListFilteredByContractId(Integer selectedContractId){
 		return contractProductMapper.getListFilteredBySelectedContractId(selectedContractId);
 	}
-	
-//	public List<M_Product>findAllById(List<TargetProducts> filteredList){
-//		
-//		//①引数のリストをfk_product_idのリストに変換
-//		List<Integer>mProductIds=filteredList.stream().map(TargetProducts::getFkProductId).collect(Collectors.toList());
-//		System.out.println("-----");
-//		System.out.println("mProductIdsResult："+mProductIds);
-//		
-//		//①を用いてM_Productsのリストを生成
-//		return mProductRepository.findByIdIn(mProductIds);
-//		}
+	/**
+	 * 引数（id）と一致するレコードのleadTimeを返す。
+	 * @param selectedContractId => M_Contract.id
+	 * @return M_Contract.leadTime
+	 * 引数（id）を含むレコードが存在しない場合は、0を返す。
+	 * */
+	public Integer getLeadTimeById(Integer selectedContractId) {
+		Optional<M_Contract> target = mContractRepository.findById(selectedContractId);
+		if (target.isEmpty()) {
+			return 0;
+		}
+		return target.get().getLeadTime();
 	}
+	
+}
 

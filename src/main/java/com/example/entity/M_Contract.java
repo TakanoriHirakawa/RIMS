@@ -13,6 +13,7 @@ import lombok.Data;
  * @param id：一意性id(主キー)(自動生成)
  * @param contractId:契約id（）
  * @param contractName：契約名称
+ * @param leadTime：納期
  * @Param basicFee：基本金額
  * @param completionFee：完了金額
  * @param estimateFee：見積金額
@@ -30,6 +31,8 @@ public class M_Contract {
 	private String contractId;
 	@Column(name="contract_name")
 	private String contractName;
+	@Column(name="lead_time")
+	private Integer leadTime;
 	@Column(name="basic_fee")
 	private Integer basicFee;
 	@Column(name="completion_fee")

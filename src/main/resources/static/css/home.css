@@ -40,7 +40,8 @@ textarea {
 		flex-grow: 1;
 	}
 
-	#child2 {
-		flex-grow: 1;
-	}
+/*TODO:オプション有効化;*/
+/*	#child2 {*/
+/*		flex-grow: 1;*/
+/*	}*/
 }
