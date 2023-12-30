@@ -38,7 +38,7 @@ public class UserDetailsImpl implements UserDetailsService {
 		
 		var result = User.withUsername(userInfo.getUserId())
 				.password(userInfo.getPassword())
-				.roles(authRepository.findById(userInfo.getFkAuthorityId()).get().getAuthority())
+				.authorities(authRepository.findById(userInfo.getFkAuthorityId()).get().getAuthority())
 				.build();
 		
 		return result;

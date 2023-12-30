@@ -15,6 +15,5 @@ public class SignupForm {
 	@Length(max=30)
 	private String userName;
 	@Length(max=6)
-	private String displayName;
 	private Integer fkAuthorityId;
 }

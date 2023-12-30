@@ -5,8 +5,10 @@ import java.util.Date;
 import org.hibernate.validator.constraints.Length;
 
 import lombok.Data;
+
 /**
- *repairingテーブルフォーム
+ * 修理履歴入力中の一次テーブル
+ * db上にテーブル無
  * @param id：一意性id(主キー)
  * @param fkContractId：m_Contractテーブル主キー(外部キー)
  * @param repairNo：修理管理番号
@@ -25,7 +27,7 @@ import lombok.Data;
  * 
  */
 @Data
-public class RepairingForm {
+public class TempRepairingForm {
 	private final Integer id;
 	private final Integer fkContractId;
 	@Length(max = 20)

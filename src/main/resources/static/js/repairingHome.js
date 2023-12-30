@@ -11,9 +11,14 @@ window.onload = function() {
 	var dd = ("0" + today.getDate()).slice(-2);
 	document.getElementById("completionDate").value = yyyy + '-' + mm + '-' + dd;
 
-	//② 契約名称の選択が変更されたときの処理
+	//②初期値の取得
 	var contractDropdown = document.getElementById('contractDropdown');
 	var productDropdown = document.getElementById('productDropdown');
+	 var initialContractId = contractDropdown.value;
+	//③ 初期表示時に契約名に応じた製品名を表示
+	 updateProductDropdown(initialContractId);
+	
+	//④ 契約名称の選択が変更されたときの処理
 
 	if (contractDropdown && productDropdown) {
 		contractDropdown.addEventListener('change', function() {
@@ -22,7 +27,6 @@ window.onload = function() {
 			updateProductDropdown(selectedContractId);
 		});
 	}
-
 	// 関連する製品名を取得し、productDropdownを更新する関数
 	function updateProductDropdown(selectedContractId) {
 		$.ajax({

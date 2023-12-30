@@ -65,11 +65,6 @@
 			<input type="text" th:field="*{userName}" />
 		</div>
 		<span class="text-danger" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></span>
-		<div>
-			<label>表示名</label>
-			<input type="text" th:field="*{displayName}" />
-		</div>
-		<span class="text-danger" th:if="${#fields.hasErrors('displayName')}" th:errors="*{displayName}"></span>
 		<label>権限</label>
 		<p>
 			<label><input type="radio" name="authority" th:text="管理者" th:value=1
