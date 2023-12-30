@@ -30,9 +30,6 @@ public class M_User {
 	
 	@Column(name="user_name")
 	private String userName;
-	
-	@Column(name="display_name")
-	private String displayName;
 
 	private String password;
 	

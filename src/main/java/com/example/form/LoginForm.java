@@ -12,7 +12,6 @@ import lombok.Data;
 public class LoginForm {
 	private final String userId;
 	private final String userName;
-	private final String displayName;
 	private final String password;
 	private final Integer fkAuthorityId;
 }

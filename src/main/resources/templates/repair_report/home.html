@@ -32,13 +32,13 @@
 		<div class="btn-group" id="parent">
 			<div id="child1">
 				<!--基本情報の入力欄-->
-				<form>
+				<form method="post" th:action="@{/repair_report/usedItemsReport}" th:object="${tempRepairingForm}">
 					<table>
 						<tr>
 							<th><label for="userDropdown">担当者</label></th>
 							<td>
 								<select id="userDropdown" name="selectedUser">
-									<option th:each="user : ${userList}" th:value="${user.userId}"th:text="${user.displayName}"></option>
+									<option th:each="userList : ${userList}" th:value="${userList.userId}"th:text="${userList.userName}" th:selected="${userList.userId == initialUserName}"></option>
 								</select>
 							</td>
 						</tr>
@@ -46,7 +46,7 @@
 							<th><label for ="contractDropdown">契約名称</label></th>
 							<td>
 								<select id="contractDropdown" name="selectedContractId">
-									<option th:each="contract : ${contractList}" th:value="${contract.id}" th:text="${contract.contractName}"></option>
+									<option th:each="contract : ${contractList}" th:value="${contract.id}" th:text="${contract.contractName}" th:selected="${contract.id== initialContractId}"></option>
 								</select>
 							</td>
 						</tr>

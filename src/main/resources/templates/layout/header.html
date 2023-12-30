@@ -12,7 +12,7 @@
 		<div class="container-fluid">
 			<a class="navbar-brand">RIMS</a>
 			<!-- ユーザー名を表示 -->
-			<p class="navbar-text">ユーザー名</p>
+			<span class="text-light" th:text="|ログインユーザー名：${#authentication.principal.username}|"></span>
 			<!-- 現在の時刻表示 -->
 			<p class="navbar-text">現在の時刻:
 				<span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"></span>
