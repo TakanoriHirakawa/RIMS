@@ -11,9 +11,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
+	/*TODO:csrfの無効化設定を解除*/
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception{
 		http
+			.csrf(csrf-> csrf.disable())//必ず解除！
 			.formLogin(login->login
 					.loginPage("/login")	//loginControllerのgetMappingと合わせる
 					.usernameParameter("userId")//html上のth:field{}と合わせる

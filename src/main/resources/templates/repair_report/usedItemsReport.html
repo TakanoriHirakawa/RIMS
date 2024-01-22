@@ -4,15 +4,52 @@
 
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!--css個別読込-->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/repair_report/usedItemsReport.css}">
+	<!--js個別読込-->
+	<script th:src="@{/js/repair_report/usedItemsReportFunc.js}"></script>
+	<script th:src="@{/js/repair_report/usedItemsReport.js}"></script>
+
 </head>
 
 <body>
-	<div layout:fragment="header2" >
+	<div layout:fragment="header2">
 		<h2>&LT;修理履歴&GT;使用部品入力画面</h2>
 	</div>
 	<div layout:fragment="content">
-		<form method="post" th:action="@{/repair_report/details}">
-			<input type="submit" value="修理詳細入力画面へ" class="btn btn-primary" />
+		<form method="post" th:action="@{/repair_report/checkReports}" >
+
+			<input type="button" value="確認画面へ" class="btn btn-primary"
+				onclick="usedItemsReportFunc.submitCheckReport()" />
+		</form>
+		<div id="tempReports" th:attr="tempReports=${tempReports}"></div>
+		以下略
+		<form >
+			<table id="usedItemsTable">
+				<thead>
+					<tr>
+						<th>SEQ</th>
+						<th>図番</th>
+						<th>物品名</th>
+						<th>数量</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td id="index-1">1</td>
+						<td>
+							<input type="text" id="itemNo-1" onblur="usedItemsReportFunc.onItemNoBlur(this)" />
+						</td>
+						<td id="itemName-1" aria-readonly="true">
+						</td>
+						<td>
+							<input type="number" min="0" id="basicQuantity-1" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</form>
 	</div>
 </body>

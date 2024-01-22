@@ -37,13 +37,13 @@ public class M_Inventory {
 	private Integer stock;
 	@Column(name="unit_price")
 	private Integer unitPrice;
-	@Column(name="basic_quantitiy")
+	@Column(name="basic_quantity")
 	private Integer basicQuantity;
 	@Column(name="status_done")
 	private boolean statusDone=false;
 	@Column(name="status_unable")
 	private boolean statusUnable=false;
-	@Column(name="status_mesage")
+	@Column(name="status_message")
 	private String statusMessage;
 	private String remarks;
 
