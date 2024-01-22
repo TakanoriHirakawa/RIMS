@@ -1,18 +1,18 @@
 package com.example.form;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.hibernate.validator.constraints.Length;
 
 import lombok.Data;
 
 /**
- * 修理履歴入力中の一次テーブル
+ * 作成中の修理報告書の一時的なフォーム
  * db上にテーブル無
  * @param id：一意性id(主キー)
  * @param fkContractId：m_Contractテーブル主キー(外部キー)
  * @param repairNo：修理管理番号
- * @Param fkProductId：m_productテーブル主キー（外部キー）
+ * @param fkProductId：m_productテーブル主キー（外部キー）
  * @param machineNo：機番
  * @param requestDate：依頼日
  * @param completionDate：完了日（デフォルト：当日）
@@ -28,20 +28,20 @@ import lombok.Data;
  */
 @Data
 public class TempRepairingForm {
-	private final Integer id;
-	private final Integer fkContractId;
+	private Integer id;
+	private Integer fkContractId;
 	@Length(max = 20)
-	private final String repairNo;
-	private final Integer fkProductId;
-	private final String machineNo;
-	private final Date requestDate;
-	private final Date completionDate;
-	private final Date deadlineDate;
-	private final Date fkUserId;
-	private final String requestDetails;
-	private final String requestCondition;
-	private final String reproducibility;
-	private final String repairDetails;
-	private final String classification;
-	private final String remarks;
+	private String repairNo;
+	private  Integer fkProductId;
+	private  String machineNo;
+	private  LocalDate requestDate;
+	private  LocalDate completionDate;
+	private  LocalDate deadlineDate;
+	private  Integer fkUserId;
+	private  String requestDetails;
+	private  String requestCondition;
+	private  String reproducibility;
+	private  String repairDetails;
+	private  String classification;
+	private  String remarks;
 }

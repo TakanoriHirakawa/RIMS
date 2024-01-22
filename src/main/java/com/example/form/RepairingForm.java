@@ -1,6 +1,6 @@
 package com.example.form;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -10,7 +10,7 @@ import lombok.Data;
  * @param id：一意性id(主キー)
  * @param fkContractId：m_Contractテーブル主キー(外部キー)
  * @param repairNo：修理管理番号
- * @Param fkProductId：m_productテーブル主キー（外部キー）
+ * @param fkProductId：m_productテーブル主キー（外部キー）
  * @param machineNo：機番
  * @param requestDate：依頼日
  * @param completionDate：完了日（デフォルト：当日）
@@ -32,10 +32,10 @@ public class RepairingForm {
 	private final String repairNo;
 	private final Integer fkProductId;
 	private final String machineNo;
-	private final Date requestDate;
-	private final Date completionDate;
-	private final Date deadlineDate;
-	private final Date fkUserId;
+	private final LocalDate requestDate;
+	private final LocalDate completionDate;
+	private final LocalDate deadlineDate;
+	private final Integer fkUserId;
 	private final String requestDetails;
 	private final String requestCondition;
 	private final String reproducibility;

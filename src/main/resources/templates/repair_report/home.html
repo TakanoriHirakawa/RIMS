@@ -1,4 +1,3 @@
-<!--templates/repair_report/home.html-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/layout}">
@@ -7,12 +6,14 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>home</title>
-	
+
 	<!--css個別読込-->
-	<script th:src="@{/css/home.css}"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/repair_report/home.css}"></link>
 
 	<!--js個別読込-->
-	<script th:src="@{/js/repairingHome.js}"></script>
+	<script th:src="@{/js/repair_report/repairingHomeFunc.js}"></script>
+	<script th:src="@{/js/repair_report/repairingHome.js}"></script>
+
 </head>
 
 <body>
@@ -24,94 +25,100 @@
 			<form style="padding:5px">
 				<input type="button" value="入力内容削除" class="btn btn-primary" />
 			</form>
-			<form style="padding:5px" method="post" th:action="@{/repair_report/usedItemsReport}">
-				<input type="submit" value="使用部品入力画面へ" class="btn btn-primary" />
+			<form style="padding:5px">
+				<input type="button" value="使用部品入力へ"  class="btn btn-primary" onclick="submitUsedItemsReport()"/>
 			</form>
 		</div>
 
 		<div class="btn-group" id="parent">
 			<div id="child1">
 				<!--基本情報の入力欄-->
-				<form method="post" th:action="@{/repair_report/usedItemsReport}" th:object="${tempRepairingForm}">
+				<form id="tempReports" th:object="${tempReports}" th:action="@{/repair_report/usedItemsReport}" method="post">
 					<table>
 						<tr>
 							<th><label for="userDropdown">担当者</label></th>
 							<td>
-								<select id="userDropdown" name="selectedUser">
-									<option th:each="userList : ${userList}" th:value="${userList.userId}"th:text="${userList.userName}" th:selected="${userList.userId == initialUserName}"></option>
+								<select id="userDropdown"  th:field="*{tempRepairingForm.fkUserId}">
+									<option th:each="userList : ${userList}" th:value="${userList.Id}"
+										th:text="${userList.userName}"
+										th:selected="${userList.userId == initialUserName}"></option>
 								</select>
 							</td>
 						</tr>
 						<tr>
-							<th><label for ="contractDropdown">契約名称</label></th>
+							<th><label for="contractDropdown">契約名称</label></th>
 							<td>
-								<select id="contractDropdown" name="selectedContractId">
-									<option th:each="contract : ${contractList}" th:value="${contract.id}" th:text="${contract.contractName}" th:selected="${contract.id== initialContractId}"></option>
+								<select id="contractDropdown" name="fkContractId" th:field="*{tempRepairingForm.fkContractId}">
+									<option th:each="contract : ${contractList}" 
+										th:value="${contract.id}" 
+										th:text="${contract.contractName}"
+										th:selected="${contract.id== initialContractId}"></option>
 								</select>
 							</td>
 						</tr>
 						<tr>
-							<th><label for ="productDropdown" >製品名</th>
-							<td><select id="productDropdown" name="selectedProduct"></select></td>
+							<th><label for="productDropdown">製品名</th>
+							<td><select id="productDropdown" name="fkProductId"
+									th:field="*{tempRepairingForm.fkProductId}"></select></td>
 						</tr>
-							<th>修理管理番号</th>
-							<td><input type="text" /></td>
+						<th>修理管理番号</th>
+						<td><input type="text" th:field="*{tempRepairingForm.repairNo}" /></td>
 						</tr>
 						<tr>
 							<th>機番</th>
-							<td><input type="text" /></td>
+							<td><input type="text" th:field="*{tempRepairingForm.machineNo}" /></td>
 						</tr>
 						<tr>
 							<th>依頼日</th>
-							<td><input type="date" id="requestDate"/></td>
+							<td><input type="date"  name="requestDate" th:field="*{tempRepairingForm.requestDate}" /></td>
 						</tr>
 						<tr>
 							<th>完了日</th>
-							<td><input type="date" id="completionDate"/></td>
+							<td><input type="date" name="completionDate" th:field="*{tempRepairingForm.completionDate}" /></td>
 						</tr>
 						<tr>
 							<th>納期日</th>
-							<td><input type="date" id="deadLineDate"/></td>
+							<td><input type="date"  name="deadlineDate" th:field="*{tempRepairingForm.deadlineDate}" /></td>
 						</tr>
 						<tr>
 							<th>修理依頼内容</th>
-							<td><textarea class="message"></textarea></td>
+							<td><textarea class="message" name="requestDetails" th:field="*{tempRepairingForm.requestDetails}"></textarea></td>
 						</tr>
 						<tr>
 							<th>実機の現象</th>
-							<td><textarea class="message"></textarea></td>
+							<td><textarea class="message" name="requestCondition" th:field="*{tempRepairingForm.requestCondition}"></textarea></td>
 						</tr>
 						<tr>
 							<th>再現性</th>
 							<td>
-								<input type="radio" name="reproducibility" th:text="再現" />
-								<input type="radio" name="reproducibility" th:text="未再現" />
-								<input type="radio" name="reproducibility" th:text="その他" />
+								<input type="radio" name="reproducibility" th:value="再現" th:text="再現" th:field="*{tempRepairingForm.reproducibility}" />
+								<input type="radio" name="reproducibility" th:value="未再現" th:text="未再現" th:field="*{tempRepairingForm.reproducibility}" />
+								<input type="radio" name="reproducibility" th:value="その他" th:text="その他" th:field="*{tempRepairingForm.reproducibility}" />
 							</td>
 						</tr>
 						<tr>
 							<th>修理実施内容</th>
-							<td><textarea class="message"></textarea></td>
+							<td><textarea class="message" th:field="*{tempRepairingForm.repairDetails}"></textarea></td>
 						</tr>
 						<tr>
 							<th>修理区分</th>
 							<td>
-								<input type="radio" name="classification" th:text="完了" />
-								<input type="radio" name="classification" th:text="未修理" />
-								<input type="radio" name="classification" th:text="見積" />
+								<input type="radio" name="classification" th:value="完了" th:text="完了" th:field="*{tempRepairingForm.classification}" />
+								<input type="radio" name="classification" th:value="未修理" th:text="未修理" th:field="*{tempRepairingForm.classification}" />
+								<input type="radio" name="classification" th:value="見積" th:text="見積" th:field="*{tempRepairingForm.classification}" />
 							</td>
 						</tr>
 					</table>
 				</form>
 			</div>
-<!--			<div id="child2">-->
-<!--				<div>-->
-<!--					TODO:契約に応じた内容が表示されるように変更-->
-<!--					<label>適用オプション１</label>-->
-<!--					<input type="checkbox" />-->
-<!--				</div>-->
-			</div>
+			<!--			<div id="child2">-->
+			<!--				<div>-->
+			<!--					TODO:契約に応じた内容が表示されるように変更-->
+			<!--					<label>適用オプション１</label>-->
+			<!--					<input type="checkbox" />-->
+			<!--				</div>-->
 		</div>
+	</div>
 	</div>
 </body>
 

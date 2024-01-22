@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+/* usedItemsReport.css */
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 10px;
+}
+
+th,
+td {
+	border: 1px solid black;
+	padding: 8px;
+	text-align: center;
+}
+
+/* 1列目の幅*/
+th:first-child,
+td:first-child {
+	width: 60px;
+}
+
+/* 2列目の幅*/
+th:nth-child(2),
+td:nth-child(2) {
+	width: 200px;
+}
+
+/* 3列目の幅*/
+th:nth-child(3),
+td:nth-child(3) {
+	width: calc(100%-340px);
+}
+
+/* 4列目の幅*/
+th:nth-child(4),
+td:nth-child(4) {
+	width: 80px;
+}
+
+#usedItemsTable input {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+/* ウィンドウサイズが変更された場合の動的な調整 */
+@media (min-width: 600px) {
+
+	th,
+	td {
+		flex: auto;
+	}
+}
