@@ -5,6 +5,10 @@
 
 <head>
 	<meta charset="utf-8">
+	
+<!--css個別読込-->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/inventory/inventory.css}"></link>
+
 </head>
 
 <body>
@@ -12,8 +16,32 @@
 		<h2>&LT;在庫管理&GT;在庫確認画面</h2>
 	</div>
 	<div layout:fragment="content">
-		<form method="post" th:action="@{/inventory/inventory}">
-			<input type="submit" value="使用部品入力画面へ" class="btn btn-primary" />
+		<form>
+			<table>
+				<thead>
+					<tr>
+						<td>SEQ</td>
+						<td>図番</td>
+						<td>物品名</td>
+						<td>在庫数</td>
+						<td>詳細移動</td>
+					</tr>
+				</thead>
+				<tbody>
+					<!--theachでリスト一覧表示-->
+					<tr th:each="list, stat : ${inventoryList}">
+						<td th:text="${stat.index+1}"></td>
+						<td th:text="${list.itemNo}"></td>
+						<td th:text="${list.itemName}"></td>
+						<td th:text="${list.stock}"></td>
+						<td>
+							<a th:text="登録内容詳細" th:href="@{Inventory/itemDetails/{itemNo}(itemNo=${list.itemNo})}"></a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+
 		</form>
 	</div>
 </body>

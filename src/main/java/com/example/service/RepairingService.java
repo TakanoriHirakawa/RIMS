@@ -38,7 +38,7 @@ public class RepairingService {
 	/**m_productテーブルDAO*/
 	private final M_ProductRepository mProductRepository;
 
-	/**m_productテーブルDAO*/
+	/**target_productsテーブルDAO*/
 	private final TargetProductsRepository targetProductsRepository;
 
 	/**m_inventoryテーブルDAO*/

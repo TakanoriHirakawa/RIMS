@@ -5,6 +5,10 @@
 
 <head>
 	<meta charset="utf-8">
+	
+	<!--css個別読込-->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/inventory/inventory_details.css}"></link>
+
 </head>
 
 <body>
@@ -13,7 +17,57 @@
 	</div>
 	<div layout:fragment="content">
 		<form method="post" th:action="@{/inventory/inventory}">
-			<input type="submit" value="使用部品入力画面へ" class="btn btn-primary" />
+			<input type="submit" value="物品一覧に戻る" class="btn btn-primary" />
+		</form>
+		<form th:object="${itemDetails}">
+			<table>
+				<tbody>
+					<tr>
+						<td>主要製品</td>
+						<td th:text="*{fkProductId}"></td>
+					</tr>
+					<tr>
+						<td>図番</td>
+						<td th:text="*{itemNo}"></td>
+					</tr>
+					<tr>
+						<td>物品名</td>
+						<td th:text="*{itemName}"></td>
+					</tr>
+					<tr>
+						<td>在庫数量</td>
+						<td th:text="*{stock}"></td>
+					</tr>
+					<tr>
+						<td>基本使用数量</td>
+						<td th:text="*{basicQuantity}"></td>
+					</tr>
+					<tr>
+						<td>物品単価</td>
+						<td th:text="*{unitPrice}"></td>
+					</tr>
+					<tr >
+						<td>在庫上限</td>
+						<td th:text="*{stockMax}"></td>
+					</tr>
+					<tr >
+						<td>在庫下限</td>
+						<td th:text="*{stockMin}"></td>
+					</tr>
+					<tr >
+						<td>発注ステータス</td>
+						<td th:text="*{statusDone}"></td>
+					</tr>
+					<tr >
+						<td>発注不可</td>
+						<td th:text="*{statusUnable}"></td>
+					</tr>
+					<tr >
+						<td>備考</td>
+						<td th:text="*{remarks}"></td>
+					</tr>
+				</tbody>
+			</table>
 		</form>
 	</div>
 </body>
