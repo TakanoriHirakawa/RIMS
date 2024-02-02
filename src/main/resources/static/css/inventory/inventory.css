@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+/* テーブルのスタイル */
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+thead {
+	background-color: burlywood;
+}
+
+/* テーブルヘッダのスタイル */
+th,
+td {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+}
+
+/* 偶数行の背景色を変更 */
+tr:nth-child(even) {
+	background-color: #f2f2f2;
+}

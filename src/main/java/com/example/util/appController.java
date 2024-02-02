@@ -1,24 +1,12 @@
 package com.example.util;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.example.form.TempReports;
+import lombok.RequiredArgsConstructor;
 
-//@Controller
-//@RequiredArgsConstructor
+@RestController
+@RequiredArgsConstructor
 public class appController {
 	
-	//private final RepairingService service;
-	
-	@PostMapping("/util/test")
-	@ResponseBody
-	public TempReports getTempReportsElement(@RequestParam("tempReports")TempReports tempReports) {
-		System.out.println("--------------------");
-		System.out.println("called from usedItemsReportFunc.ajax");		
-		System.out.println("--------------------");
-		System.out.println(tempReports);
-		return tempReports;
-	};
+
 }

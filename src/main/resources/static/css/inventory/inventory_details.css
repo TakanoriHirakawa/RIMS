@@ -1,0 +1,29 @@
+@charset "UTF-8";
+@charset "UTF-8";
+
+/* テーブルのスタイル */
+table {
+	border-collapse: collapse;
+	margin-top: 10px;
+}
+
+/* テーブルヘッダのスタイル */
+th,
+td {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+}
+
+/* 1列目の幅*/
+th:first-child,
+td:first-child {
+	background-color: rgb(218, 239, 241);
+	width: 200px;
+}
+
+/* 2列目の幅*/
+th:nth-child(2),
+td:nth-child(2) {
+	width: 200px;
+}
