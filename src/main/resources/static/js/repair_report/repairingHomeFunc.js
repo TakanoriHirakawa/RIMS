@@ -57,11 +57,7 @@ repairingHomeFunc.updateDeadLineDate = function(requestDate, selectedContractId)
 			requestDate: requestDate
 		},
 		success: function(data) {
-			var resultDate = data;
-
-			//取得したデータを使ってdeadlineDateを更新
-			var deadlineDate = document.getElementsByName('deadlineDate');
-			deadlineDate.value = resultDate;
+			$("#deadlineDate").val(data);
 		},
 		error: function() {
 			console.error('Failed to retrieve products.');
@@ -74,7 +70,7 @@ repairingHomeFunc.updateDeadLineDate = function(requestDate, selectedContractId)
  */
 function submitUsedItemsReport() {
 	    // フォームデータを取得
-    var formElement = document.getElementById('tempReports');
+    var formElement = document.getElementById('tempRepairing');
     var formData = new FormData(formElement);
 
     // フォームデータをオブジェクトに変換
@@ -84,5 +80,5 @@ function submitUsedItemsReport() {
         formDataObject[key] = value;
     });
     
-	document.getElementById('tempReports').submit();
+	document.getElementById('tempRepairing').submit();
 };

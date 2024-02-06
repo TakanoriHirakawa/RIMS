@@ -56,7 +56,7 @@ public class RepairReportController {
 		model.addAttribute("initialContractId", contractList.get(0).getId());
 		model.addAttribute("productList", productList);
 		/*入力情報保持用フォームをmodelに格納*/
-		model.addAttribute("tempReports", service.getTempReports());
+		model.addAttribute("tempReports", service.getTempRereports());
 		return "repair_report/home";
 	}
 
@@ -80,11 +80,10 @@ public class RepairReportController {
 	 *@return LocalDate 納期日(deadLineDate)
 	 * */
 	@GetMapping("/calcDeadLineDateByContractId")
-	@ResponseBody 
+	@ResponseBody
 	public LocalDate calcDeadLineDate(
 			@RequestParam("requestDate") LocalDate requestDate,
 			@RequestParam("selectedContractId") Integer selectedContractId) {
-
 		//selectedContractIdに応じたdeadLineDateを返す処理
 		Integer result = service.getLeadTimeById(selectedContractId);
 		return requestDate.plusDays(result);
@@ -92,48 +91,40 @@ public class RepairReportController {
 
 	/**
 	 *repair_report/usedItemsReportのレスポンス（post）
-	 *@param temp
+	 *@param tempRepairing：入力情報
 	 *前画面（home.html）からtempRepairingFormの引き継ぎ・保持
 	 *
 	 * */
 	@PostMapping("/usedItemsReport")
 	public String postUsedItemsReport(Model model,
-			@ModelAttribute("tempReports")TempReports tempReports ,
+			@ModelAttribute("tempReports") TempReports tempReports,
 			@AuthenticationPrincipal User user) {
 		boolean isAdmin = user.getAuthorities().stream()
 				.allMatch(authority -> authority.getAuthority().equals("admin"));
-		model.addAttribute("isAdmin", isAdmin);
-
-		/*インベントリ一覧取得*/
-		List<M_Inventory> inventoryList = service.getInventoryList();
-		model.addAttribute("inventoryList", inventoryList);
-
-//		//確認中
-//		System.out.println("①-----");
-//		System.out.println("tempReports" + tempReports.toString());
-
+		model.addAttribute("isAdmin", isAdmin);		
+		
 		return "repair_report/usedItemsReport";
 	}
 
 	/**
-	 *usedItemsReportFunc.js上で活用する処理
+	 *usedItemsReportFunc.jsからの呼び出し
 	 *html上で入力された図番がm_invenory上に存在するか確認し、
 	 *存在する場合は、該当レコードを返し、
 	 *存在しない場合はOptional.empty()を返す
 	 *@param inputItemNo 画面上で入力した図番。
-	 *@return Optional<M_Inventory> 引数の図番を持つレコードor Optional.empty()
+	 *@return Optional<M_Inventory> 引数の図番を持つレコード or Optional.empty()
 	 * */
-	@GetMapping("/getInventoryDetails")
+	@GetMapping("/findRecordByItemNo")
 	@ResponseBody
-	public Optional<M_Inventory> getInventoryDetails(@RequestParam("inputItemNo") String inputItemNo) {
+	public Optional<M_Inventory> findRecordByItemNo(@RequestParam("currentItemNo") String inputItemNo) {
 		return service.findItemByItemNo(inputItemNo);
 	}
-
 	/**
 	 *repair_report/checkReportsのレスポンス（post）
-	 *@param temp
+	 *@param tempRepairingForm：home.htmlでの入力内容
+	 *@param List：usedItemsReport.htmlでの入力内容
+	 *@return repair_report/checkReports.html
 	 *前画面（home.html）からtempRepairingFormの引き継ぎ・保持
-	 *
 	 * */
 	@PostMapping("/checkReports")
 	public String postCheckReport(Model model,
@@ -143,9 +134,6 @@ public class RepairReportController {
 				.allMatch(authority -> authority.getAuthority().equals("admin"));
 		model.addAttribute("isAdmin", isAdmin);
 
-		//確認中
-		System.out.println("②-----");
-		System.out.println("tempReports" + tempReports.toString());
 		return "repair_report/checkReports";
 	}
 
@@ -158,15 +146,5 @@ public class RepairReportController {
 	public String getEstimate() {
 		return "repair_report/estimate";
 	}
-	
-	@GetMapping("/test")
-	@ResponseBody
-	public TempReports getTempReportsElement(@RequestParam("tempReports")TempReports tempReports) {
-		System.out.println("--------------------");
-		System.out.println("called from usedItemsReportFunc.ajax");		
-		System.out.println("--------------------");
-		System.out.println(tempReports);
-		return tempReports;
-	};
 
 }

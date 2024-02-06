@@ -96,42 +96,15 @@ public class RepairingService {
 		}
 		return target.get().getLeadTime();
 	}
-	
+
 	/**
-	 * 修理報告書および使用部品報告書の入力情報を一時的に保持するコンストラクタを生成する。
+	 * 修理報告書および使用部品報告書の入力情報を一時的に保持するインスタンスを生成する。
 	 * @return TempReportsコンストラクタ
 	 * */
-	public TempReports getTempReports() {
+	public TempReports getTempRereports() {
 		return new TempReports();
 	}
-	
-//
-//	/**
-//	 * 修理報告書の入力情報を一時的に保持するコンストラクタを生成する。
-//	 * @return TempRepairingFormコンストラクタ
-//	 * */
-//	public TempRepairingForm getTempRepairIngForm() {
-//		return new TempRepairingForm();
-//	}
-//	
-//	/**
-//	 * 修理報告書の入力情報を一時的に保持するコンストラクタを生成する。
-//	 * @return TempUsedItemsReportFormコンストラクタ
-//	 * */
-//	public TempUsedItemsReportForm tempUsedItemsReportForm() {
-//		return new TempUsedItemsReportForm();
-//	}
-//
-//	/**
-//	 *使用部品報告書の入力情報を一時的に保持するListを生成する。
-//	 * @return List＜usedItemsReport＞
-//	 * */
-//	public List<TempUsedItemsReportForm> getTempUsedItemsReportList() {
-//		List<TempUsedItemsReportForm> result = new ArrayList<>();
-//		return result;
-//	}
-//
-	
+
 	/**
 	 * m_inventoryテーブルから引数のitemNoを持つレコードを一件取得する。
 	 * @param itemNo 図番
