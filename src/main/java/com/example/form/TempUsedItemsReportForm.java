@@ -19,14 +19,13 @@ import lombok.Data;
  * */
 
 @Data
-public class TempUsedItemsReportForm {
+public class TempUsedItemsReportForm{
 	private Integer index;
 	private Integer fkRepairingId;
 	private Integer fkInventoryLogId;
 	private Integer fkProcessTypeId;
-	private String itemNo;
+	private String itemNo;  
 	private Integer quantity;
-	private Integer stockAtTheTime;
 	private String author;
 	private LocalDateTime creationTimeStamp;
 

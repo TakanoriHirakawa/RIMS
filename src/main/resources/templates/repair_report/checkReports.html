@@ -4,17 +4,107 @@
 
 <head>
 	<meta charset="utf-8">
+	
+	<!--css個別読込-->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/repair_report/checkReports.css}">
 </head>
 
 <body>
-	<div layout:fragment="header2" >
+	<div layout:fragment="header2">
 		<h2>&LT;修理履歴&GT;報告書確認画面</h2>
 	</div>
 	<div layout:fragment="content">
 		<form method="post" th:action="@{/repair_report/scrapItemsReport}">
 			<input type="submit" value="仕損品入力画面へ" class="btn btn-primary" />
 		</form>
+
+		<form th:object="${tempReports}">
+			<div id="parent">
+				<div id="tempRepairingForm">
+					<label>修理報告書</label>
+					<table id="repairReportTable">
+						<tr>
+							<th>修理管理番号</th>
+							<td th:text="*{tempRepairingForm.repairNo}"></td>
+						</tr>
+						<tr>
+							<th>契約名称</th>
+							<td th:text="*{tempRepairingForm.fkContractId}"></td>
+						</tr>
+						<tr>
+							<th>製品名</th>
+							<td th:text="*{tempRepairingForm.fkProductId}"></td>
+						</tr>
+						<tr>
+							<th>機番</th>
+							<td th:text="*{tempRepairingForm.machineNo}"></td>
+						</tr>
+						<tr>
+							<th>依頼日</th>
+							<td th:text="*{tempRepairingForm.requestDate}"></td>
+						</tr>
+						<tr>
+							<th>完了日</th>
+							<td th:text="*{tempRepairingForm.completionDate}"></td>
+						</tr>
+						<tr>
+							<th>納期日</th>
+							<td th:text="*{tempRepairingForm.deadlineDate}"></td>
+						</tr>
+						<tr>
+							<th>修理依頼内容</th>
+							<td th:text="*{tempRepairingForm.requestDetails}"></td>
+						</tr>
+						<tr>
+							<th>実機の状態</th>
+							<td th:text="*{tempRepairingForm.requestCondition}"></td>
+						</tr>
+						<tr>
+							<th>再現性</th>
+							<td th:text="*{tempRepairingForm.reproducibility}"></td>
+						</tr>
+						<tr>
+							<th>修理実施内容</th>
+							<td th:text="*{tempRepairingForm.repairDetails}"></td>
+						</tr>
+						<tr>
+							<th>修理区分</th>
+							<td th:text="*{tempRepairingForm.classification}"></td>
+						</tr>
+						<tr>
+							<th>備考</th>
+							<td th:text="*{tempRepairingForm.remarks}"></td>
+						</tr>
+					</table>
+				</div>
+				<div id="tempUsedItemsList">
+					<label>使用部品報告書</label>
+					<table id="usedItemsReportTable">
+						<thead>
+							<tr>
+								<th>SEQ</th>
+								<th>図番</th>
+								<th>物品名</th>
+								<th>数量</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="tempUsedItem, stat : *{tempUsedItemsList}">
+								<td th:text="${stat.index+1}"></td>
+								<td th:text="${tempUsedItem.itemNo}"></td>
+								<td id="itemName"></td>
+								<td th:text="${tempUsedItem.quantity}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</form>
+
+
 	</div>
+
+
 </body>
 
 </html>

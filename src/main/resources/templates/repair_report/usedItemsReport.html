@@ -19,14 +19,24 @@
 		<h2>&LT;修理履歴&GT;使用部品入力画面</h2>
 	</div>
 	<div layout:fragment="content">
-		<form method="post" th:action="@{/repair_report/checkReports}" >
-
-			<input type="button" value="確認画面へ" class="btn btn-primary"
-				onclick="usedItemsReportFunc.submitCheckReport()" />
-		</form>
-		<div id="tempReports" th:attr="tempReports=${tempReports}"></div>
-		以下略
-		<form >
+		<button style="padding:5px" type="submit" form="tempReports" class="btn btn-primary">次へ</button>
+		<form id="tempReports" method="post" th:action="@{/repair_report/checkReports}" th:object="${tempReports}">
+			<input type="hidden" th:field="*{tempRepairingForm.fkContractId}">
+			<input type="hidden" th:field="*{tempRepairingForm.repairNo}">
+			<input type="hidden" th:field="*{tempRepairingForm.fkProductId}">
+			<input type="hidden" th:field="*{tempRepairingForm.machineNo}">
+			<input type="hidden" th:field="*{tempRepairingForm.requestDate}">
+			<input type="hidden" th:field="*{tempRepairingForm.completionDate}">
+			<input type="hidden" th:field="*{tempRepairingForm.deadlineDate}">
+			<input type="hidden" th:field="*{tempRepairingForm.requestDetails}">
+			<input type="hidden" th:field="*{tempRepairingForm.requestCondition}">
+			<input type="hidden" th:field="*{tempRepairingForm.reproducibility}">
+			<input type="hidden" th:field="*{tempRepairingForm.repairDetails}">
+			<input type="hidden" th:field="*{tempRepairingForm.classification}">
+			<input type="hidden" th:field="*{tempRepairingForm.remarks}">
+			<input type="submit" value="確認画面へ" class="btn btn-primary">
+			<!--			<input type="button" value="確認画面へ" class="btn btn-primary"-->
+			<!--				onclick="usedItemsReportFunc.submitCheckReport()" />-->
 			<table id="usedItemsTable">
 				<thead>
 					<tr>
@@ -37,15 +47,14 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td id="index-1">1</td>
+					<tr th:each="tempUsedItem, stat : *{tempUsedItemsList}">
+						<td th:text="${stat.index+1}"></td>
 						<td>
-							<input type="text" id="itemNo-1" onblur="usedItemsReportFunc.onItemNoBlur(this)" />
+							<input id="itemNo" type="text" th:field="*{tempUsedItemsList[__${stat.index}__].itemNo}">
 						</td>
-						<td id="itemName-1" aria-readonly="true">
-						</td>
+						<td id="itemName"></td>
 						<td>
-							<input type="number" min="0" id="basicQuantity-1" />
+							<input id="quantity" type="number" min="0" th:field="*{tempUsedItemsList[__${stat.index}__].quantity}">
 						</td>
 					</tr>
 				</tbody>

@@ -8,7 +8,8 @@
 	<title>home</title>
 
 	<!--css個別読込-->
-	<link rel="stylesheet" type="text/css" th:href="@{/css/repair_report/home.css}"></link>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/repair_report/home.css}">
+	</link>
 
 	<!--js個別読込-->
 	<script th:src="@{/js/repair_report/repairingHomeFunc.js}"></script>
@@ -26,19 +27,21 @@
 				<input type="button" value="入力内容削除" class="btn btn-primary" />
 			</form>
 			<form style="padding:5px">
-				<input type="button" value="使用部品入力へ"  class="btn btn-primary" onclick="submitUsedItemsReport()"/>
+				<input type="button" value="使用部品入力へ" class="btn btn-primary" onclick="submitUsedItemsReport()" />
 			</form>
+			<button style="padding: 5px" type="submit" form="tempReports" class="btn btn-primary">次へ</button>
 		</div>
-
+				
 		<div class="btn-group" id="parent">
 			<div id="child1">
 				<!--基本情報の入力欄-->
-				<form id="tempReports" th:object="${tempReports}" th:action="@{/repair_report/usedItemsReport}" method="post">
+				<form id="tempReports" th:object="${tempReports}" th:action="@{/repair_report/usedItemsReport}"
+					method="post">
 					<table>
 						<tr>
 							<th><label for="userDropdown">担当者</label></th>
 							<td>
-								<select id="userDropdown"  th:field="*{tempRepairingForm.fkUserId}">
+								<select id="userDropdown" th:field="*{tempRepairingForm.fkUserId}">
 									<option th:each="userList : ${userList}" th:value="${userList.Id}"
 										th:text="${userList.userName}"
 										th:selected="${userList.userId == initialUserName}"></option>
@@ -49,8 +52,7 @@
 							<th><label for="contractDropdown">契約名称</label></th>
 							<td>
 								<select id="contractDropdown" name="fkContractId" th:field="*{tempRepairingForm.fkContractId}">
-									<option th:each="contract : ${contractList}" 
-										th:value="${contract.id}" 
+									<option th:each="contract : ${contractList}" th:value="${contract.id}"
 										th:text="${contract.contractName}"
 										th:selected="${contract.id== initialContractId}"></option>
 								</select>
@@ -58,8 +60,7 @@
 						</tr>
 						<tr>
 							<th><label for="productDropdown">製品名</th>
-							<td><select id="productDropdown" name="fkProductId"
-									th:field="*{tempRepairingForm.fkProductId}"></select></td>
+							<td><select id="productDropdown" name="fkProductId" th:field="*{tempRepairingForm.fkProductId}"></select></td>
 						</tr>
 						<th>修理管理番号</th>
 						<td><input type="text" th:field="*{tempRepairingForm.repairNo}" /></td>
@@ -70,30 +71,38 @@
 						</tr>
 						<tr>
 							<th>依頼日</th>
-							<td><input type="date"  name="requestDate" th:field="*{tempRepairingForm.requestDate}" /></td>
+							<td><input type="date" id="requestDate" name="requestDate" th:field="*{tempRepairingForm.requestDate}" />
+							</td>
 						</tr>
 						<tr>
 							<th>完了日</th>
-							<td><input type="date" name="completionDate" th:field="*{tempRepairingForm.completionDate}" /></td>
+							<td><input type="date" id="completionDate"name="completionDate"
+									th:field="*{tempRepairingForm.completionDate}" /></td>
 						</tr>
 						<tr>
 							<th>納期日</th>
-							<td><input type="date"  name="deadlineDate" th:field="*{tempRepairingForm.deadlineDate}" /></td>
+							<td><input type="date" id="deadlineDate" name="deadlineDate" th:field="*{tempRepairingForm.deadlineDate}" />
+							</td>
 						</tr>
 						<tr>
 							<th>修理依頼内容</th>
-							<td><textarea class="message" name="requestDetails" th:field="*{tempRepairingForm.requestDetails}"></textarea></td>
+							<td><textarea class="message" name="requestDetails"
+									th:field="*{tempRepairingForm.requestDetails}"></textarea></td>
 						</tr>
 						<tr>
 							<th>実機の現象</th>
-							<td><textarea class="message" name="requestCondition" th:field="*{tempRepairingForm.requestCondition}"></textarea></td>
+							<td><textarea class="message" name="requestCondition"
+									th:field="*{tempRepairingForm.requestCondition}"></textarea></td>
 						</tr>
 						<tr>
 							<th>再現性</th>
 							<td>
-								<input type="radio" name="reproducibility" th:value="再現" th:text="再現" th:field="*{tempRepairingForm.reproducibility}" />
-								<input type="radio" name="reproducibility" th:value="未再現" th:text="未再現" th:field="*{tempRepairingForm.reproducibility}" />
-								<input type="radio" name="reproducibility" th:value="その他" th:text="その他" th:field="*{tempRepairingForm.reproducibility}" />
+								<input type="radio" name="reproducibility" th:value="再現" th:text="再現"
+									th:field="*{tempRepairingForm.reproducibility}" />
+								<input type="radio" name="reproducibility" th:value="未再現" th:text="未再現"
+									th:field="*{tempRepairingForm.reproducibility}" />
+								<input type="radio" name="reproducibility" th:value="その他" th:text="その他"
+									th:field="*{tempRepairingForm.reproducibility}" />
 							</td>
 						</tr>
 						<tr>
@@ -103,9 +112,12 @@
 						<tr>
 							<th>修理区分</th>
 							<td>
-								<input type="radio" name="classification" th:value="完了" th:text="完了" th:field="*{tempRepairingForm.classification}" />
-								<input type="radio" name="classification" th:value="未修理" th:text="未修理" th:field="*{tempRepairingForm.classification}" />
-								<input type="radio" name="classification" th:value="見積" th:text="見積" th:field="*{tempRepairingForm.classification}" />
+								<input type="radio" name="classification" th:value="完了" th:text="完了"
+									th:field="*{tempRepairingForm.classification}" />
+								<input type="radio" name="classification" th:value="未修理" th:text="未修理"
+									th:field="*{tempRepairingForm.classification}" />
+								<input type="radio" name="classification" th:value="見積" th:text="見積"
+									th:field="*{tempRepairingForm.classification}" />
 							</td>
 						</tr>
 					</table>
