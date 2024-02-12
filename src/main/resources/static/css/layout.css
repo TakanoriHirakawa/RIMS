@@ -1,21 +1,36 @@
 @charset "UTF-8";
 /* layout.css */
 
-.container {
-	width: 100%;
+body{
 	display: flex;
+	flex-direction: column; 
+    margin: 0; 
 }
 
-.body {
-	width: 80%
+#headerNav{
+	height: 60px;
 }
 
-.side {
-	width: 20%
+#rowDiv{
+	margin: 0%;
+	height: 100%;
 }
 
-@media (max-width:600px) {
-	side {
-		width: 150px;
+#sidebarNav{
+	max-width: 180px;
+}
+
+#categoryAccordion {
+    width: 100%; /* navタグの幅いっぱいにする */
+    button{
+		text-align: left;
+		width:100%;
 	}
 }
+
+#contentNav{	
+	flex:1;
+}
+
+
+@media (max-width:760px) {}

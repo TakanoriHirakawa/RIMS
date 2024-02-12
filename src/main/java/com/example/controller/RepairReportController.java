@@ -43,7 +43,7 @@ public class RepairReportController {
 		boolean isAdmin = user.getAuthorities().stream()
 				.allMatch(authority -> authority.getAuthority().equals("admin"));
 		model.addAttribute("isAdmin", isAdmin);
-		model.addAttribute("initialUserName", user.getUsername());
+		
 		/*ユーザー一覧取得*/
 		List<M_User> userList = service.getUserList();
 		/*契約一覧取得*/
@@ -52,11 +52,45 @@ public class RepairReportController {
 		List<M_Product> productList = service.getProductList();
 		/*各取得内容をmodelに格納*/
 		model.addAttribute("userList", userList);
+		model.addAttribute("initialId", service.findIdByAuthUserName(user.getUsername()));
 		model.addAttribute("contractList", contractList);
 		model.addAttribute("initialContractId", contractList.get(0).getId());
 		model.addAttribute("productList", productList);
 		/*入力情報保持用フォームをmodelに格納*/
 		model.addAttribute("tempReports", service.getTempRereports());
+		
+		return "repair_report/home";
+	}
+	
+	/**
+	 * repair_report/homeのPostレスポンス
+	 * @param model
+	 * @param user 認証ユーザ情報
+	 * @return repair_report/home のhtml
+	 * */
+	@PostMapping("/home")
+	public String postHome(Model model, @AuthenticationPrincipal User user,
+			@ModelAttribute("tempReports") TempReports tempReports) {
+		boolean isAdmin = user.getAuthorities().stream()
+				.allMatch(authority -> authority.getAuthority().equals("admin"));
+		model.addAttribute("isAdmin", isAdmin);
+		
+		/*ユーザー一覧取得*/
+		List<M_User> userList = service.getUserList();
+		model.addAttribute("userList", userList);
+
+		/*契約一覧取得*/
+		List<M_Contract> contractList = service.getContractList();
+		model.addAttribute("contractList", contractList);
+
+		/*製品一覧取得*/
+		List<M_Product> productList = service.getProductList();
+		model.addAttribute("productList", productList);
+
+		model.addAttribute("initialId", tempReports.getTempRepairingForm().getFkUserId());
+		model.addAttribute("initialContractId", tempReports.getTempRepairingForm().getFkContractId());
+		/*入力情報保持用フォームをmodelに格納*/
+		
 		return "repair_report/home";
 	}
 
@@ -133,7 +167,12 @@ public class RepairReportController {
 		boolean isAdmin = user.getAuthorities().stream()
 				.allMatch(authority -> authority.getAuthority().equals("admin"));
 		model.addAttribute("isAdmin", isAdmin);
+		
+		tempReports = service.moldTempReports(tempReports);
 
+		System.out.println("back from moldMethod");
+		System.out.println(tempReports.toString());
+		
 		return "repair_report/checkReports";
 	}
 

@@ -5,20 +5,15 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!-- js読み込み -->
-	<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
-	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
-	<!-- css読み込み -->
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-	
+
 	<title></title>
 </head>
 
 <body>
-	<nav layout:fragment="sidebar" class="navbar navbar-inverse navbar-fixed-top navbar-dark bg-dark">
+	<div layout:fragment="sidebar" class="navbar navbar-fixed-top justify-content-center">
 		<!-- カテゴリとサブカテゴリのボタン -->
+		<h4>～ Menu ～</h4>
 		<div class="accordion" id="categoryAccordion">
-
 			<!-- カテゴリ 1 -->
 			<div class="accordion-item">
 				<h2 class="accordion-header" id="category1">
@@ -42,7 +37,7 @@
 					</div>
 				</div>
 			</div>
-
+			
 			<!-- カテゴリ 2 -->
 			<div class="accordion-item">
 				<h2 class="accordion-header" id="category2">
@@ -77,30 +72,6 @@
 				</form>
 			</div>
 
-			<!-- カテゴリx
-			<div class="accordion-item">
-				<h2 class="accordion-header" id="category3">
-					<button class="accordion-button" type="button" data-bs-toggle="collapse"
-						data-bs-target="#collapseCategory3" aria-expanded="false" aria-controls="collapseCategory3">
-						カテゴリ名称
-					</button>
-				</h2>
-				<div id="collapseCategory3" class="accordion-collapse collapse" aria-labelledby="category3"
-					data-bs-parent="#categoryAccordion">
-					<div class="accordion-body">
-						<form method="post" th:action="@{/repair_report/homePost}">
-							<button type="submit" class="btn btn-light">ボタン名称</button>
-						</form>
-						<form method="post" th:action="@{/repair_report/estimate}">
-							<button type="submit" class="btn btn-light">ボタン名称</button>
-						</form>
-						<form method="post" th:action="@{/repair_report/scrapItemsReport}">
-							<button type="submit" class="btn btn-light">ボタン名称</button>
-						</form>
-					</div>
-				</div>
-			</div>
--->
 			<!-- Admin -->
 			<th:block th:if="${isAdmin}">
 				<form method="post" th:action="@{/repair_report/scrapItemsReport}">
@@ -108,5 +79,5 @@
 				</form>
 			</th:block>
 		</div>
-	</nav>
+	</div>
 </body>

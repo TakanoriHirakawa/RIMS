@@ -12,6 +12,7 @@ import lombok.Data;
  * @param fkInventoryLogId：inventory_logテーブル主キー（外部キー）不要?
  * @param fkProcessTypeId：process_typeテーブル主キー（外部キー）_InventoryLog.fkProcessTypeId
  * @param itemNo：図番
+ * @param itemName：物品名
  * @param quantity：数量_UsedItemsReport.quantity & InventoryLog.changedQuantity
  * @param stockAtTheTime：変更適用後時点の在庫数_InventoryLog.stockAtTheTime
  * @param author：ログ作成者_InventoryLog.author
@@ -25,6 +26,7 @@ public class TempUsedItemsReportForm{
 	private Integer fkInventoryLogId;
 	private Integer fkProcessTypeId;
 	private String itemNo;  
+	private String itemName;
 	private Integer quantity;
 	private String author;
 	private LocalDateTime creationTimeStamp;

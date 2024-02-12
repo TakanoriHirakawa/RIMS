@@ -4,36 +4,50 @@
 
 <head>
 	<meta charset="utf-8">
-	
+
 	<!--css個別読込-->
 	<link rel="stylesheet" type="text/css" th:href="@{/css/repair_report/checkReports.css}">
 </head>
 
 <body>
-	<div layout:fragment="header2">
+	<div layout:fragment="contentsHeader">
 		<h2>&LT;修理履歴&GT;報告書確認画面</h2>
 	</div>
 	<div layout:fragment="content">
 		<form method="post" th:action="@{/repair_report/scrapItemsReport}">
 			<input type="submit" value="仕損品入力画面へ" class="btn btn-primary" />
 		</form>
+		<form method="post" th:action="@{/repair_report/home}" th:object="${tempReports}">
+			<input type="submit" value="修理報告書を修正" class="btn btn-primary" />
+		</form>
+		<form method="post" th:action="@{/repair_report/usedItemsReport}" th:object="${tempReports}">
+			<input type="submit" value="使用部品報告書を修正" class="btn btn-primary" />
+		</form>
+
 
 		<form th:object="${tempReports}">
 			<div id="parent">
 				<div id="tempRepairingForm">
-					<label>修理報告書</label>
+					<h5>修理報告書</h5>
 					<table id="repairReportTable">
+						<tr>
+							<th>担当者</th>
+							<input type="hidden" th:field="*{tempRepairingForm.fkUserId}">
+							<td th:text="*{tempRepairingForm.userName}"></td>
+						</tr>
 						<tr>
 							<th>修理管理番号</th>
 							<td th:text="*{tempRepairingForm.repairNo}"></td>
 						</tr>
 						<tr>
 							<th>契約名称</th>
-							<td th:text="*{tempRepairingForm.fkContractId}"></td>
+							<input type="hidden" th:field="*{tempRepairingForm.fkContractId}">
+							<td th:text="*{tempRepairingForm.contractName}"></td>
 						</tr>
 						<tr>
 							<th>製品名</th>
-							<td th:text="*{tempRepairingForm.fkProductId}"></td>
+							<input type="hidden" th:field="*{tempRepairingForm.fkProductId}">
+							<td th:text="*{tempRepairingForm.productName}"></td>
 						</tr>
 						<tr>
 							<th>機番</th>
@@ -78,7 +92,7 @@
 					</table>
 				</div>
 				<div id="tempUsedItemsList">
-					<label>使用部品報告書</label>
+					<h4>使用部品報告書</h4>
 					<table id="usedItemsReportTable">
 						<thead>
 							<tr>
@@ -92,7 +106,7 @@
 							<tr th:each="tempUsedItem, stat : *{tempUsedItemsList}">
 								<td th:text="${stat.index+1}"></td>
 								<td th:text="${tempUsedItem.itemNo}"></td>
-								<td id="itemName"></td>
+								<td th:text="${tempUsedItem.itemName}"></td>
 								<td th:text="${tempUsedItem.quantity}"></td>
 							</tr>
 						</tbody>

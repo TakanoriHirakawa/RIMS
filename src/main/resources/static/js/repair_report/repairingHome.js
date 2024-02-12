@@ -13,13 +13,14 @@ window.onload = function() {
 	document.getElementById("completionDate").value = yyyy + '-' + mm + '-' + dd;
 
 	//②初期値の取得
-	var contractDropdown = document.getElementById('contractDropdown');
-	var initialContractId = contractDropdown.value;
-
-	//③ 初期表示時に契約名に応じた製品名を表示
+	var initialId=$("#initialId").val();
+	$("#userDropdown").val(initialId)
+	var initialContractId = $("#initialContractId").val();
+	$("#contractDropdown").val(initialContractId)
+	
+	//④ 初期表示時に契約名に応じた製品名を表示
 	repairingHomeFunc.updateProductDropdown(initialContractId);
 }
-
 
 //④ 契約名称の選択が変更されたとき製品リストを更新する処理
 $(document).ready(function() {
@@ -35,9 +36,9 @@ $(document).ready(function() {
 		var selectedContractId = $("#contractDropdown").val();
 		var inputRequestDate = $("#requestDate").val();
 		
-		repairingHomeFunc.updateDeadLineDate(inputRequestDate, selectedContractId);
+		if( inputRequestDate !== null && inputRequestDate !== undefined && inputRequestDate.trim() !== ''){
+			repairingHomeFunc.updateDeadLineDate(inputRequestDate, selectedContractId);		
+		};
+		
 		});
 });
-
-
-

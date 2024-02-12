@@ -1,0 +1,84 @@
+<!-- templates/layout/sidebar.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- js読み込み -->
+	<script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
+	<!-- css読み込み -->
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+
+	<title></title>
+</head>
+
+<body>
+	<div layout:fragment="sidebar" class="navbar navbar-fixed-top">
+		<div class="list-unstyled components">
+			<p>Memu</p>
+			<li class="active">
+				<!--カテゴリ1-->
+				<a href="#category1" data-toggle="collapse" aria-expanded="false">修理報告</a>
+				<ul id="category1" class="collapse list-unstyled">
+					<li>
+						<form method="get" th:action="@{/repair_report/home}">
+							<button type="submit" class="btn btn-link">修理報告</button>
+						</form>
+					</li>
+					<li>
+						<form method="post" th:action="@{/repair_report/estimate}">
+							<button type="submit" class="btn btn-link">見積</button>
+						</form>
+					</li>
+					<li>
+						<form method="get" th:action="@{/repair_report/scrapItemsReport}">
+							<button type="submit" class="btn btn-link">仕損品報告</button>
+						</form>
+					</li>
+				</ul>
+				<!--カテゴリ2-->
+				<a href="#category2" data-toggle="collapse" aria-expanded="false">在庫管理</a>
+				<ul id="category2" class="collapse list-unstyled">
+					<li>
+						<form method="get" th:action="@{/inventory/inventory}">
+							<button type="submit" class="btn btn-link">物品一覧</button>
+						</form>
+					</li>
+					<li>
+						<form method="get" th:action="@{/inventory/receiving_items}">
+							<button type="submit" class="btn btn-link">入庫</button>
+						</form>
+					</li>
+					<li>
+						<form method="get" th:action="@{/inventory/order_items}">
+							<button type="submit" class="btn btn-link">発注</button>
+						</form>
+					</li>
+					<li>
+						<form method="get" th:action="@{/inventory/register_item}">
+							<button type="submit" class="btn btn-link">物品登録</button>
+						</form>
+					</li>
+				</ul>
+				<!--カテゴリ3-->
+				<a>
+					<form method="get" th:action="@{/repair_report/scrapItemsReport}">
+						<button type="submit" class="btn btn-link">修理履歴</button>
+					</form>
+				</a>
+				<!--カテゴリ4-->
+				<th:block th:if="${isAdmin}">
+					<a href="#category4" data-toggle="collapse" aria-expanded="false">Admin</a>
+			<li>
+				<form method="get" th:action="@{/admin/userControll}">
+					<button type="submit" class="btn btn-link">従業員管理</button>
+				</form>
+			</li>
+			</th:block>
+			</li>
+			</li>
+		</div>
+	</div>
+</body>

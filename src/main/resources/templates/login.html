@@ -35,11 +35,11 @@
 				<label for="password" class="sr-only">パスワード</label>
 				<input type="password" th:field="*{password}" class="form-control" placeholder="password" />
 			</div>
-			<input type="submit" value="ログイン" class="btn btn-primary" />
+			
 			<!--ログインエラーメッセージ-->
-			<span th:text="${errorMsg}" class="text-danger"></span><br>
+			<span th:utext="${errorMsg}" class="text-danger"></span><br>
+			<input type="submit" value="ログイン" class="btn btn-primary" />
 		</form>
-		<a th:href="@{/signup}">▶ユーザー登録</a>
 	</div>
 </body>
 

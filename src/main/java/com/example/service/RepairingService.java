@@ -114,4 +114,42 @@ public class RepairingService {
 		return mInventoryRepository.findByItemNo(itemNo);
 	}
 
+	/**
+	 * m_userテーブルから引数のidをもつレコードを一件取得する。
+	 * @param username ：springSecurittyのログインユーザー名
+	 * @return M_user.userName
+	 * */
+	public Integer findIdByAuthUserName(String username) {
+		Optional<M_User> findResult = mUserRepository.findByUserId(username);
+		return findResult.get().getId();
+	}
+
+	/**
+	 * checkReports.html表示前に入力情報を成形するメソッド
+	 * @param tempReports：入力情報保持インスタンス
+	 * @return tempReprots：成形後
+	 * */
+	public TempReports moldTempReports(TempReports tempReports) {
+		System.out.println("moldTempReports is called");
+		//契約名称・製品名・担当者を成形
+		Optional<M_Contract> tempContract = mContractRepository.findById(tempReports.getTempRepairingForm().getFkContractId());
+		tempReports.getTempRepairingForm().setContractName(tempContract.get().getContractName());
+		Optional<M_Product> tempProduct = mProductRepository.findById(tempReports.getTempRepairingForm().getFkProductId());
+		tempReports.getTempRepairingForm().setProductName(tempProduct.get().getProductName());
+		Optional<M_User> tempUser = mUserRepository.findById(tempReports.getTempRepairingForm().getFkUserId());
+		tempReports.getTempRepairingForm().setUserName(tempUser.get().getUserName());
+		
+		for (int i = 0; i < tempReports.getTempUsedItemsList().size(); i++) {
+				String currentItemNo =tempReports.getTempUsedItemsList().get(i).getItemNo();
+				if (currentItemNo.equals("")) {
+					break; 
+				}
+				Optional<M_Inventory>tempInventory = mInventoryRepository.findByItemNo(currentItemNo);
+				tempReports.getTempUsedItemsList().get(i).setItemName(tempInventory.get().getItemName());
+		}
+		
+		System.out.println("moldTempReports is succeess");
+		
+		return tempReports;
+	}
 }
