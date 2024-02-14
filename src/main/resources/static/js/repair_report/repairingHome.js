@@ -11,7 +11,10 @@ window.onload = function() {
 	var mm = ("0" + (today.getMonth() + 1)).slice(-2);
 	var dd = ("0" + today.getDate()).slice(-2);
 	document.getElementById("completionDate").value = yyyy + '-' + mm + '-' + dd;
-
+	
+	var requestDateValue = document.getElementById('requestDate').value;
+    console.log("依頼日の初期値: " + requestDateValue);
+    
 	//②初期値の取得
 	var initialId=$("#initialId").val();
 	$("#userDropdown").val(initialId)

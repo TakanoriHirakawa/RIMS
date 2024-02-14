@@ -55,19 +55,22 @@
 						<tr>
 							<th>製品名</th>
 							<td><select id="productDropdown" name="fkProductId"
-									th:field="*{tempRepairingForm.fkProductId}"></select></td>
+									th:field="*{tempRepairingForm.fkProductId}">
+								</select></td>
 						</tr>
 						<th>修理管理番号</th>
-						<td><input type="text" th:field="*{tempRepairingForm.repairNo}" /></td>
+						<td><input type="text" th:field="*{tempRepairingForm.repairNo}"
+								th:value="*{tempRepairingForm.repairNo}" /></td>
 						</tr>
 						<tr>
 							<th>機番</th>
-							<td><input type="text" th:field="*{tempRepairingForm.machineNo}" /></td>
+							<td><input type="text" th:field="*{tempRepairingForm.machineNo}"
+									th:value="*{tempRepairingForm.machineNo}" /></td>
 						</tr>
 						<tr>
 							<th>依頼日</th>
 							<td><input type="date" id="requestDate" name="requestDate"
-									th:field="*{tempRepairingForm.requestDate}" />
+									th:field="*{tempRepairingForm.requestDate}"/>
 							</td>
 						</tr>
 						<tr>

@@ -3,6 +3,7 @@ package com.example.form;
 import java.time.LocalDate;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -39,8 +40,11 @@ public class TempRepairingForm {
 	private  Integer fkProductId;
 	private String productName;
 	private  String machineNo;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private  LocalDate requestDate;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private  LocalDate completionDate;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private  LocalDate deadlineDate;
 	private  Integer fkUserId;
 	private String userId;

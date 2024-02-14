@@ -1,0 +1,5 @@
+/**
+ * checkReportsFunc.js
+ */
+
+var  checkReportsFunc={}

@@ -1,16 +1,21 @@
 package com.example.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import com.example.entity.M_Contract;
 import com.example.entity.M_Inventory;
 import com.example.entity.M_Product;
 import com.example.entity.M_User;
+import com.example.entity.Repairing;
 import com.example.entity.TargetProducts;
+import com.example.form.TempRepairingForm;
 import com.example.form.TempReports;
 import com.example.mapper.TargetProductsMapper;
 import com.example.repository.M_ContractRepository;
@@ -21,8 +26,10 @@ import com.example.repository.RepairingRepository;
 import com.example.repository.TargetProductsRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class RepairingService {
 
@@ -130,7 +137,6 @@ public class RepairingService {
 	 * @return tempReprots：成形後
 	 * */
 	public TempReports moldTempReports(TempReports tempReports) {
-		System.out.println("moldTempReports is called");
 		//契約名称・製品名・担当者を成形
 		Optional<M_Contract> tempContract = mContractRepository.findById(tempReports.getTempRepairingForm().getFkContractId());
 		tempReports.getTempRepairingForm().setContractName(tempContract.get().getContractName());
@@ -138,6 +144,7 @@ public class RepairingService {
 		tempReports.getTempRepairingForm().setProductName(tempProduct.get().getProductName());
 		Optional<M_User> tempUser = mUserRepository.findById(tempReports.getTempRepairingForm().getFkUserId());
 		tempReports.getTempRepairingForm().setUserName(tempUser.get().getUserName());
+		tempReports.getTempRepairingForm().setUserId(tempUser.get().getUserId());
 		
 		for (int i = 0; i < tempReports.getTempUsedItemsList().size(); i++) {
 				String currentItemNo =tempReports.getTempUsedItemsList().get(i).getItemNo();
@@ -147,9 +154,46 @@ public class RepairingService {
 				Optional<M_Inventory>tempInventory = mInventoryRepository.findByItemNo(currentItemNo);
 				tempReports.getTempUsedItemsList().get(i).setItemName(tempInventory.get().getItemName());
 		}
-		
-		System.out.println("moldTempReports is succeess");
-		
+				
 		return tempReports;
 	}
+	/**
+	 * dbに入力した修理内容を登録するメソッド
+	 * @param tempReports：入力情報保持フォーム
+	 * */
+	public void resistReports(TempReports tempReports,@AuthenticationPrincipal User user) {
+		resistRepairReport(tempReports.getTempRepairingForm(),user);
+		
+	}
+	
+	/**
+	 * 修理報告書の内容を登録するメソッド
+	 * @param tempRepairingForm
+	 * */
+	public void resistRepairReport(TempRepairingForm tempRepairingForm,@AuthenticationPrincipal User user) {
+		Repairing repairingData = new Repairing();
+		repairingData.setId(null);
+		repairingData.setFkContractId(tempRepairingForm.getFkContractId());
+		repairingData.setRepairNo(tempRepairingForm.getRepairNo());
+		repairingData.setFkProductId(tempRepairingForm.getFkProductId());
+		repairingData.setMachineNo(tempRepairingForm.getMachineNo());
+		repairingData.setRequestDate(tempRepairingForm.getRequestDate());
+		repairingData.setCompletionDate(tempRepairingForm.getCompletionDate());
+		repairingData.setDeadlineDate(tempRepairingForm.getDeadlineDate());
+		repairingData.setFkUserId(tempRepairingForm.getUserId());
+		repairingData.setRequestDetails(tempRepairingForm.getRequestDetails());
+		repairingData.setRequestCondition(tempRepairingForm.getRequestCondition());
+		repairingData.setReproducibility(tempRepairingForm.getReproducibility());
+		repairingData.setRepairDetails(tempRepairingForm.getRepairDetails());
+		repairingData.setClassification(tempRepairingForm.getClassification());
+		repairingData.setRemarks(tempRepairingForm.getRemarks());
+		Optional<M_User> findResult = mUserRepository.findByUserId(user.getUsername());
+		String author = findResult.get().getUserName();
+		repairingData.setAuthor(author);
+		repairingData.setCreationTimeStamp(LocalDateTime.now());
+				
+		repairingRepository.save(repairingData);
+		
+	}
+	
 }

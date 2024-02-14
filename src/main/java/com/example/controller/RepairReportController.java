@@ -24,8 +24,10 @@ import com.example.form.TempReports;
 import com.example.service.RepairingService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/repair_report")
 public class RepairReportController {
@@ -86,11 +88,15 @@ public class RepairReportController {
 		/*製品一覧取得*/
 		List<M_Product> productList = service.getProductList();
 		model.addAttribute("productList", productList);
-
+		
+		/*必要なものは、初期値（前回の入力値）の格納*/
 		model.addAttribute("initialId", tempReports.getTempRepairingForm().getFkUserId());
 		model.addAttribute("initialContractId", tempReports.getTempRepairingForm().getFkContractId());
-		/*入力情報保持用フォームをmodelに格納*/
-		
+		model.addAttribute("initialProductId", tempReports.getTempRepairingForm().getFkProductId());
+		model.addAttribute("initialRequestDate",tempReports.getTempRepairingForm().getRequestDate());
+
+		log.info(tempReports.toString());
+
 		return "repair_report/home";
 	}
 
@@ -169,15 +175,26 @@ public class RepairReportController {
 		model.addAttribute("isAdmin", isAdmin);
 		
 		tempReports = service.moldTempReports(tempReports);
-
-		System.out.println("back from moldMethod");
-		System.out.println(tempReports.toString());
 		
 		return "repair_report/checkReports";
+	}
+	
+	@PostMapping("/resistReport")
+	public String postResistReport(Model model,
+			@ModelAttribute("tempReports") TempReports tempReports,
+			@AuthenticationPrincipal User user) {
+		boolean isAdmin = user.getAuthorities().stream()
+				.allMatch(authority -> authority.getAuthority().equals("admin"));
+		model.addAttribute("isAdmin", isAdmin);
+
+		service.resistReports(tempReports,user);
+		
+		return "repair_report/scrapItemsReport";
 	}
 
 	@PostMapping("/scrapItemsReport")
 	public String getScrapItemsReport() {
+		
 		return "repair_report/scrapItemsReport";
 	}
 
