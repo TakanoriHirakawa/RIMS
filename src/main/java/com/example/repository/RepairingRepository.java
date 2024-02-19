@@ -9,5 +9,6 @@ import com.example.entity.Repairing;
 public interface RepairingRepository extends JpaRepository<Repairing,Integer>{
 	Optional<Repairing>findById(Integer id);
 
-	//Optional<Repairing>findbByRepairNo(Integer repairNo);
+	Optional<Repairing> findByRepairNo(String repairNo);
+
 }

@@ -7,7 +7,7 @@
 
 	<!--css個別読込-->
 	<link rel="stylesheet" type="text/css" th:href="@{/css/repair_report/checkReports.css}">
-	
+
 	<!--js個別読込-->
 	<script th:src="@{/js/repair_report/checkReportsFunc.js}"></script>
 	<script th:src="@{/js/repair_report/checkReports.js}"></script>
@@ -20,12 +20,12 @@
 	</div>
 	<div layout:fragment="content">
 		<button type="submit" form="submitForm" class="btn btn-primary" />報告内容を確定</button>
-	
+
 		<button type="button" class="btn btn-warning" id="backToHome">修理報告書を修正</button>
-		
+
 		<button type="button" class="btn btn-warning" id="backToUsedItemsReport">使用部品報告書を修正</button>
-		 
-		<form id="submitForm"  th:object="${tempReports}" method="post" th:action="@{/repair_report/resistReport}">
+
+		<form id="submitForm" th:object="${tempReports}" method="post" th:action="@{/repair_report/resistReport}">
 			<div id="parent">
 				<div id="tempRepairingForm">
 					<h5>修理報告書</h5>
@@ -116,20 +116,23 @@
 							</tr>
 						</thead>
 						<tbody>
-							<input type="hidden" th:field="*{tempUsedItemsList}">
 							<tr th:each="tempUsedItem, stat : *{tempUsedItemsList}">
 								<td th:text="${stat.index+1}"></td>
-								<td th:text="${tempUsedItem.itemNo}"></td>
-								<td th:text="${tempUsedItem.itemName}"></td>
-								<td th:text="${tempUsedItem.quantity}"></td>
+								<td>
+									<input type="text" th:field="*{tempUsedItemsList[__${stat.index}__].itemNo}" th:value="*{tempUsedItemsList[__${stat.index}__].itemNo}" readonly>
+								</td>
+								<td >
+									<input type="text" th:field="*{tempUsedItemsList[__${stat.index}__].itemName}" th:value="*{tempUsedItemsList[__${stat.index}__].itemName}" readonly>
+								</td>
+								<td >
+									<input type="text" th:field="*{tempUsedItemsList[__${stat.index}__].quantity}" th:value="*{tempUsedItemsList[__${stat.index}__].quantity}" readonly>
+								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</form>
-
-
 	</div>
 
 

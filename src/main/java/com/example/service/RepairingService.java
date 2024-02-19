@@ -9,21 +9,26 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
+import com.example.entity.InventoryLog;
 import com.example.entity.M_Contract;
 import com.example.entity.M_Inventory;
 import com.example.entity.M_Product;
 import com.example.entity.M_User;
 import com.example.entity.Repairing;
 import com.example.entity.TargetProducts;
+import com.example.entity.UsedItemsReport;
 import com.example.form.TempRepairingForm;
 import com.example.form.TempReports;
+import com.example.form.TempUsedItemsReportForm;
 import com.example.mapper.TargetProductsMapper;
+import com.example.repository.InventoryLogRepository;
 import com.example.repository.M_ContractRepository;
 import com.example.repository.M_InventoryRepository;
 import com.example.repository.M_ProductRepository;
 import com.example.repository.M_UserRepository;
 import com.example.repository.RepairingRepository;
 import com.example.repository.TargetProductsRepository;
+import com.example.repository.UsedItemsReportRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,6 +55,12 @@ public class RepairingService {
 
 	/**m_inventoryテーブルDAO*/
 	private final M_InventoryRepository mInventoryRepository;
+	
+	/*inventory_logテーブルDAO*/
+	private final InventoryLogRepository inventoryLogRepository;
+	
+	/*used_items_reportテーブルDAO**/
+	private final UsedItemsReportRepository usedItemsReportRepository;
 
 	@Autowired
 	private TargetProductsMapper contractProductMapper;
@@ -163,12 +174,19 @@ public class RepairingService {
 	 * */
 	public void resistReports(TempReports tempReports,@AuthenticationPrincipal User user) {
 		resistRepairReport(tempReports.getTempRepairingForm(),user);
-		
+		Integer repairId =0; 
+		//条件分岐：使用部品の有無
+		if( !tempReports.getTempUsedItemsList().get(0).getItemNo().equals("")) {
+			//登録したレコードを逆取得し、該当レコードidを取得
+			Optional<Repairing>result =  repairingRepository.findByRepairNo(tempReports.getTempRepairingForm().getRepairNo());
+			 repairId= result.get().getId();
+			 resistUsedItemsReport(tempReports.getTempUsedItemsList(),repairId,user);
+		}
 	}
-	
+
 	/**
 	 * 修理報告書の内容を登録するメソッド
-	 * @param tempRepairingForm
+	 * @param tempRepairingForm：修理報告書(tempRepairingForm)の情報
 	 * */
 	public void resistRepairReport(TempRepairingForm tempRepairingForm,@AuthenticationPrincipal User user) {
 		Repairing repairingData = new Repairing();
@@ -192,8 +210,59 @@ public class RepairingService {
 		repairingData.setAuthor(author);
 		repairingData.setCreationTimeStamp(LocalDateTime.now());
 				
-		repairingRepository.save(repairingData);
-		
+		//repairingRepository.save(repairingData);	
 	}
+	
+	/**
+	 * 修理報告書の内容を登録するメソッド
+	 * @param tempUsedItemsList：使用部品報告書(List<TempUsedItemsReportForm>)の情報
+	 * @param ログインuser情報
+	 * */
+	private void resistUsedItemsReport(List<TempUsedItemsReportForm> tempUsedItemsList,Integer repairId,@AuthenticationPrincipal User user) {
+		//拡張for構文でリストを一件ずつ登録していく
+		for(TempUsedItemsReportForm usedItem : tempUsedItemsList) {
+			if(usedItem.getItemNo().equals("")) {
+				break;
+			}
+			
+			Optional<M_User> findResult = mUserRepository.findByUserId(user.getUsername());
+			String currentUser = findResult.get().getUserName();
+			LocalDateTime now = LocalDateTime.now();
+			//fkInvenotryId用
+			Optional<M_Inventory>itemRecord =mInventoryRepository.findByItemNo(usedItem.getItemNo());
+
+			InventoryLog currentInventoryLog = new InventoryLog();
+			currentInventoryLog.setId(null);
+			currentInventoryLog.setFkInventoryId(itemRecord.get().getId());
+			currentInventoryLog.setFkProcessTypeId(1);//procecssTypeテーブルよりid=1：出庫
+			currentInventoryLog.setChangedQuantity(-usedItem.getQuantity());
+			currentInventoryLog.setStockAtTheTime(itemRecord.get().getStock()-usedItem.getQuantity());			
+			currentInventoryLog.setAuthor(currentUser);
+			currentInventoryLog.setCreationTimeStamp(now);
+			
+			inventoryLogRepository.save(currentInventoryLog);
+			//登録したinventoryLogをcreationTimeStampから参照（idを取得するため）
+			Optional<InventoryLog>inventoryLogRecord = inventoryLogRepository.findByCreationTimeStamp(now);
+			
+			UsedItemsReport currentUsedItemsReport =new UsedItemsReport();
+			currentUsedItemsReport.setId(null);
+			currentUsedItemsReport.setFkInventorylogId(inventoryLogRecord.get().getId());
+			currentUsedItemsReport.setFkRepairIngId(repairId);
+			currentUsedItemsReport.setQuantity(usedItem.getQuantity());
+			currentUsedItemsReport.setAuthor(currentUser);
+			currentUsedItemsReport.setCreationTimeStamp(now);
+			
+			usedItemsReportRepository.save(currentUsedItemsReport);
+			
+			//在庫データの更新
+			M_Inventory inventory = itemRecord.get();
+			inventory.setStock(currentInventoryLog.getStockAtTheTime());
+			inventory.setChanger(currentUser);
+			inventory.setUpadateTimeStamp(now);
+			mInventoryRepository.save(inventory);
+		}
+	}
+	
+	
 	
 }

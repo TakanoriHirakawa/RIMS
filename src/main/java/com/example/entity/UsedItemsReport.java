@@ -1,5 +1,7 @@
 package com.example.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,10 +24,13 @@ import lombok.Data;
 public class UsedItemsReport {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private final Integer id;
+	private Integer id;
 	@Column(name="fk_repairing_id")
-	private final Integer fkRepairIngId;
+	private Integer fkRepairIngId;
 	@Column(name="fk_inventory_log_id")
-	private final Integer fkInventorylogId;
-	private final Integer quantity;
+	private Integer fkInventorylogId;
+	private Integer quantity;
+	private String author;
+	@Column(name = "creation_timestamp")
+	private LocalDateTime creationTimeStamp;
 }

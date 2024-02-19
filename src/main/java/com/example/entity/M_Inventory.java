@@ -1,5 +1,7 @@
 package com.example.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -53,5 +55,12 @@ public class M_Inventory {
 	@Column(name="status_message")
 	private String statusMessage;
 	private String remarks;
+	private String author;
+	@Column(name = "creation_timestamp")
+	private LocalDateTime creationTimeStamp;
+	private String changer;
+	@Column(name = "update_timestamp")
+	private LocalDateTime upadateTimeStamp;
+	
 
 }

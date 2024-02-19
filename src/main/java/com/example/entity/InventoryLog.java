@@ -24,20 +24,20 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "inventory_log")
-public class InventorLog {
+public class InventoryLog {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private final Integer id;
-	@Column(name = "fk_inventory_id")
-	private final Integer fkInventoryId;
+	private Integer id;
+	@Column(name = "fk_m_inventory_id")
+	private Integer fkInventoryId;
 	@Column(name = "fk_process_type_id")
-	private final Integer fkProcessTypeId;
+	private Integer fkProcessTypeId;
 	@Column(name = "changed_quantity")
-	private final Integer changedQuantity;
+	private Integer changedQuantity;
 	@Column(name = "stock_at_the_time")
-	private final Integer stockAtTheTime;
-	private final String author;
+	private Integer stockAtTheTime;
+	private String author;
 	@Column(name = "creation_timestamp")
-	private final LocalDateTime creationTimeStamp;
+	private LocalDateTime creationTimeStamp;
 
 }
