@@ -3,6 +3,7 @@ package com.example.form;
 import java.time.LocalDate;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -11,13 +12,16 @@ import lombok.Data;
  * db上にテーブル無
  * @param id：一意性id(主キー)
  * @param fkContractId：m_Contractテーブル主キー(外部キー)
+ * @param contractName：fkContractIdのレコード
  * @param repairNo：修理管理番号
  * @param fkProductId：m_productテーブル主キー（外部キー）
+ * @param productName：fkProductIdのレコード
  * @param machineNo：機番
  * @param requestDate：依頼日
  * @param completionDate：完了日（デフォルト：当日）
  * @param  deadlineDate：納期日（依頼日+契約から算出した値）
  * @param  fkUserId：m_userテーブル主キー（外部キー）
+ * @param userName：fkUserIdのレコード
  * @param requestDetails：客先障害内容
  * @param requestCondition：実機の状態（受入時の状態）
  * @param reproducibility：再現性（再現・未再現・その他から選択）
@@ -30,14 +34,21 @@ import lombok.Data;
 public class TempRepairingForm {
 	private Integer id;
 	private Integer fkContractId;
+	private String contractName;
 	@Length(max = 20)
 	private String repairNo;
 	private  Integer fkProductId;
+	private String productName;
 	private  String machineNo;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private  LocalDate requestDate;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private  LocalDate completionDate;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private  LocalDate deadlineDate;
 	private  Integer fkUserId;
+	private String userId;
+	private  String userName;
 	private  String requestDetails;
 	private  String requestCondition;
 	private  String reproducibility;

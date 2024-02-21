@@ -1,9 +1,11 @@
 package com.example.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.hibernate.validator.constraints.Length;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -38,20 +40,34 @@ public class Repairing {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private final Integer id;
-	private final Integer fkContractId;
+	private  Integer id;
+	@Column(name="fk_contract_id")
+	private  Integer fkContractId;
 	@Length(max = 20)
-	private final String repairNo;
-	private final Integer fkProductId;
-	private final String machineNo;
-	private final LocalDate requestDate;
-	private final LocalDate completionDate;
-	private final LocalDate deadlineDate;
-	private final Integer fkUserId;
-	private final String requestDetails;
-	private final String requestCondition;
-	private final String reproducibility;
-	private final String repairDetails;
-	private final String classification;
-	private final String remarks;
+	@Column(name="repair_no")
+	private  String repairNo;
+	@Column(name="fk_product_id")
+	private  Integer fkProductId;
+	@Column(name="machine_no")
+	private  String machineNo;
+	private  LocalDate requestDate;
+	private  LocalDate completionDate;
+	private  LocalDate deadlineDate;
+	@Column(name="fk_m_user_id")
+	private  String fkUserId;
+	@Column(name="request_details")
+	private  String requestDetails;
+	@Column(name="request_condition")
+	private  String requestCondition;
+	private  String reproducibility;
+	@Column(name="repair_details")
+	private  String repairDetails;
+	private  String classification;
+	private  String remarks;
+	private  String author;
+	@Column(name="creation_timestamp")
+	private  LocalDateTime creationTimeStamp;
+
+	
+
 }

@@ -25,21 +25,21 @@ import lombok.Data;
  * 
  */
 @Data
-public class RepairingForm {
-	private final Integer id;
-	private final Integer fkContractId;
+public class RepairingData {
+	private  Integer id;
+	private  Integer fkContractId;
 	@Length(max = 20)
-	private final String repairNo;
-	private final Integer fkProductId;
-	private final String machineNo;
-	private final LocalDate requestDate;
-	private final LocalDate completionDate;
-	private final LocalDate deadlineDate;
-	private final Integer fkUserId;
-	private final String requestDetails;
-	private final String requestCondition;
-	private final String reproducibility;
-	private final String repairDetails;
-	private final String classification;
-	private final String remarks;
+	private  String repairNo;
+	private  Integer fkProductId;
+	private  String machineNo;
+	private  LocalDate requestDate;
+	private  LocalDate completionDate;
+	private  LocalDate deadlineDate;
+	private  Integer fkUserId;
+	private  String requestDetails;
+	private  String requestCondition;
+	private  String reproducibility;
+	private  String repairDetails;
+	private  String classification;
+	private  String remarks;
 }

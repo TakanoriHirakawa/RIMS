@@ -24,8 +24,10 @@ import com.example.form.TempReports;
 import com.example.service.RepairingService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/repair_report")
 public class RepairReportController {
@@ -43,7 +45,7 @@ public class RepairReportController {
 		boolean isAdmin = user.getAuthorities().stream()
 				.allMatch(authority -> authority.getAuthority().equals("admin"));
 		model.addAttribute("isAdmin", isAdmin);
-		model.addAttribute("initialUserName", user.getUsername());
+		
 		/*ユーザー一覧取得*/
 		List<M_User> userList = service.getUserList();
 		/*契約一覧取得*/
@@ -52,11 +54,49 @@ public class RepairReportController {
 		List<M_Product> productList = service.getProductList();
 		/*各取得内容をmodelに格納*/
 		model.addAttribute("userList", userList);
+		model.addAttribute("initialId", service.findIdByAuthUserName(user.getUsername()));
 		model.addAttribute("contractList", contractList);
 		model.addAttribute("initialContractId", contractList.get(0).getId());
 		model.addAttribute("productList", productList);
 		/*入力情報保持用フォームをmodelに格納*/
 		model.addAttribute("tempReports", service.getTempRereports());
+		
+		return "repair_report/home";
+	}
+	
+	/**
+	 * repair_report/homeのPostレスポンス
+	 * @param model
+	 * @param user 認証ユーザ情報
+	 * @return repair_report/home のhtml
+	 * */
+	@PostMapping("/home")
+	public String postHome(Model model, @AuthenticationPrincipal User user,
+			@ModelAttribute("tempReports") TempReports tempReports) {
+		boolean isAdmin = user.getAuthorities().stream()
+				.allMatch(authority -> authority.getAuthority().equals("admin"));
+		model.addAttribute("isAdmin", isAdmin);
+		
+		/*ユーザー一覧取得*/
+		List<M_User> userList = service.getUserList();
+		model.addAttribute("userList", userList);
+
+		/*契約一覧取得*/
+		List<M_Contract> contractList = service.getContractList();
+		model.addAttribute("contractList", contractList);
+
+		/*製品一覧取得*/
+		List<M_Product> productList = service.getProductList();
+		model.addAttribute("productList", productList);
+		
+		/*必要なものは、初期値（前回の入力値）の格納*/
+		model.addAttribute("initialId", tempReports.getTempRepairingForm().getFkUserId());
+		model.addAttribute("initialContractId", tempReports.getTempRepairingForm().getFkContractId());
+		model.addAttribute("initialProductId", tempReports.getTempRepairingForm().getFkProductId());
+		model.addAttribute("initialRequestDate",tempReports.getTempRepairingForm().getRequestDate());
+
+		log.info(tempReports.toString());
+
 		return "repair_report/home";
 	}
 
@@ -133,12 +173,28 @@ public class RepairReportController {
 		boolean isAdmin = user.getAuthorities().stream()
 				.allMatch(authority -> authority.getAuthority().equals("admin"));
 		model.addAttribute("isAdmin", isAdmin);
-
+		
+		tempReports = service.moldTempReports(tempReports);
+		
 		return "repair_report/checkReports";
+	}
+	
+	@PostMapping("/resistReport")
+	public String postResistReport(Model model,
+			@ModelAttribute("tempReports") TempReports tempReports,
+			@AuthenticationPrincipal User user) {
+		boolean isAdmin = user.getAuthorities().stream()
+				.allMatch(authority -> authority.getAuthority().equals("admin"));
+		model.addAttribute("isAdmin", isAdmin);
+
+		service.resistReports(tempReports,user);
+		
+		return "repair_report/scrapItemsReport";
 	}
 
 	@PostMapping("/scrapItemsReport")
 	public String getScrapItemsReport() {
+		
 		return "repair_report/scrapItemsReport";
 	}
 

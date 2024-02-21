@@ -18,70 +18,70 @@
 </head>
 
 <body>
-	<div layout:fragment="header2">
-		<h2>&LT;修理履歴&GT;基本情報入力画面（ホーム）</h2>
+	<div layout:fragment="contentsHeader">
+		<h2>&LT;修理報告&GT;基本情報入力画面</h2>
 	</div>
 	<div layout:fragment="content">
-		<div style="display:inline-flex">
-			<form style="padding:5px">
-				<input type="button" value="入力内容削除" class="btn btn-primary" />
-			</form>
-			<form style="padding:5px">
-				<input type="button" value="使用部品入力へ" class="btn btn-primary" onclick="submitUsedItemsReport()" />
-			</form>
-			<button style="padding: 5px" type="submit" form="tempReports" class="btn btn-primary">次へ</button>
-		</div>
-				
+		<button type="button" class="btn btn-primary">入力内容削除</button>
+		<button type="submit" form="tempReports" class="btn btn-primary">使用部品入力へ</button>
 		<div class="btn-group" id="parent">
 			<div id="child1">
 				<!--基本情報の入力欄-->
 				<form id="tempReports" th:object="${tempReports}" th:action="@{/repair_report/usedItemsReport}"
 					method="post">
-					<table>
+					<table id="repairReportTable">
 						<tr>
-							<th><label for="userDropdown">担当者</label></th>
+							<th>担当者</th>
 							<td>
+								<input type="hidden" id="initialId" th:value="${initialId}">
 								<select id="userDropdown" th:field="*{tempRepairingForm.fkUserId}">
 									<option th:each="userList : ${userList}" th:value="${userList.Id}"
-										th:text="${userList.userName}"
-										th:selected="${userList.userId == initialUserName}"></option>
+										th:text="${userList.userName}">
+									</option>
 								</select>
 							</td>
 						</tr>
 						<tr>
-							<th><label for="contractDropdown">契約名称</label></th>
+							<th>契約名称</th>
 							<td>
-								<select id="contractDropdown" name="fkContractId" th:field="*{tempRepairingForm.fkContractId}">
+								<input type="hidden" id="initialContractId" th:value="${initialContractId}">
+								<select id="contractDropdown" name="fkContractId"
+									th:field="*{tempRepairingForm.fkContractId}">
 									<option th:each="contract : ${contractList}" th:value="${contract.id}"
-										th:text="${contract.contractName}"
-										th:selected="${contract.id== initialContractId}"></option>
+										th:text="${contract.contractName}"></option>
 								</select>
 							</td>
 						</tr>
 						<tr>
-							<th><label for="productDropdown">製品名</th>
-							<td><select id="productDropdown" name="fkProductId" th:field="*{tempRepairingForm.fkProductId}"></select></td>
+							<th>製品名</th>
+							<td><select id="productDropdown" name="fkProductId"
+									th:field="*{tempRepairingForm.fkProductId}">
+								</select></td>
 						</tr>
 						<th>修理管理番号</th>
-						<td><input type="text" th:field="*{tempRepairingForm.repairNo}" /></td>
+						<td><input type="text" th:field="*{tempRepairingForm.repairNo}"
+								th:value="*{tempRepairingForm.repairNo}" /></td>
 						</tr>
 						<tr>
 							<th>機番</th>
-							<td><input type="text" th:field="*{tempRepairingForm.machineNo}" /></td>
+							<td><input type="text" th:field="*{tempRepairingForm.machineNo}"
+									th:value="*{tempRepairingForm.machineNo}" /></td>
 						</tr>
 						<tr>
 							<th>依頼日</th>
-							<td><input type="date" id="requestDate" name="requestDate" th:field="*{tempRepairingForm.requestDate}" />
+							<td><input type="date" id="requestDate" name="requestDate"
+									th:field="*{tempRepairingForm.requestDate}"/>
 							</td>
 						</tr>
 						<tr>
 							<th>完了日</th>
-							<td><input type="date" id="completionDate"name="completionDate"
+							<td><input type="date" id="completionDate" name="completionDate"
 									th:field="*{tempRepairingForm.completionDate}" /></td>
 						</tr>
 						<tr>
 							<th>納期日</th>
-							<td><input type="date" id="deadlineDate" name="deadlineDate" th:field="*{tempRepairingForm.deadlineDate}" />
+							<td><input type="date" id="deadlineDate" name="deadlineDate"
+									th:field="*{tempRepairingForm.deadlineDate}" />
 							</td>
 						</tr>
 						<tr>

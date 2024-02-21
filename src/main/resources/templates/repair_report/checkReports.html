@@ -4,81 +4,108 @@
 
 <head>
 	<meta charset="utf-8">
-	
+
 	<!--css個別読込-->
 	<link rel="stylesheet" type="text/css" th:href="@{/css/repair_report/checkReports.css}">
+
+	<!--js個別読込-->
+	<script th:src="@{/js/repair_report/checkReportsFunc.js}"></script>
+	<script th:src="@{/js/repair_report/checkReports.js}"></script>
+
 </head>
 
 <body>
-	<div layout:fragment="header2">
+	<div layout:fragment="contentsHeader">
 		<h2>&LT;修理履歴&GT;報告書確認画面</h2>
 	</div>
 	<div layout:fragment="content">
-		<form method="post" th:action="@{/repair_report/scrapItemsReport}">
-			<input type="submit" value="仕損品入力画面へ" class="btn btn-primary" />
-		</form>
+		<button type="submit" form="submitForm" class="btn btn-primary" />報告内容を確定</button>
 
-		<form th:object="${tempReports}">
+		<button type="button" class="btn btn-warning" id="backToHome">修理報告書を修正</button>
+
+		<button type="button" class="btn btn-warning" id="backToUsedItemsReport">使用部品報告書を修正</button>
+
+		<form id="submitForm" th:object="${tempReports}" method="post" th:action="@{/repair_report/resistReport}">
 			<div id="parent">
 				<div id="tempRepairingForm">
-					<label>修理報告書</label>
+					<h5>修理報告書</h5>
 					<table id="repairReportTable">
 						<tr>
+							<th>担当者</th>
+							<input type="hidden" th:field="*{tempRepairingForm.userId}">
+							<input type="hidden" th:field="*{tempRepairingForm.fkUserId}">
+							<input type="hidden" th:field="*{tempRepairingForm.userName}">
+							<td th:text="*{tempRepairingForm.userName}"></td>
+						</tr>
+						<tr>
 							<th>修理管理番号</th>
+							<input type="hidden" th:field="*{tempRepairingForm.repairNo}">
 							<td th:text="*{tempRepairingForm.repairNo}"></td>
 						</tr>
 						<tr>
 							<th>契約名称</th>
-							<td th:text="*{tempRepairingForm.fkContractId}"></td>
+							<input type="hidden" th:field="*{tempRepairingForm.fkContractId}">
+							<td th:text="*{tempRepairingForm.contractName}"></td>
 						</tr>
 						<tr>
 							<th>製品名</th>
-							<td th:text="*{tempRepairingForm.fkProductId}"></td>
+							<input type="hidden" th:field="*{tempRepairingForm.fkProductId}">
+							<td th:text="*{tempRepairingForm.productName}"></td>
 						</tr>
 						<tr>
 							<th>機番</th>
+							<input type="hidden" th:field="*{tempRepairingForm.machineNo}">
 							<td th:text="*{tempRepairingForm.machineNo}"></td>
 						</tr>
 						<tr>
 							<th>依頼日</th>
+							<input type="hidden" th:field="*{tempRepairingForm.requestDate}">
 							<td th:text="*{tempRepairingForm.requestDate}"></td>
 						</tr>
 						<tr>
 							<th>完了日</th>
+							<input type="hidden" th:field="*{tempRepairingForm.completionDate}">
 							<td th:text="*{tempRepairingForm.completionDate}"></td>
 						</tr>
 						<tr>
 							<th>納期日</th>
+							<input type="hidden" th:field="*{tempRepairingForm.deadlineDate}">
 							<td th:text="*{tempRepairingForm.deadlineDate}"></td>
 						</tr>
 						<tr>
 							<th>修理依頼内容</th>
+							<input type="hidden" th:field="*{tempRepairingForm.requestDetails}">
 							<td th:text="*{tempRepairingForm.requestDetails}"></td>
 						</tr>
 						<tr>
 							<th>実機の状態</th>
+							<input type="hidden" th:field="*{tempRepairingForm.requestCondition}">
 							<td th:text="*{tempRepairingForm.requestCondition}"></td>
 						</tr>
 						<tr>
 							<th>再現性</th>
+							<input type="hidden" th:field="*{tempRepairingForm.reproducibility}">
 							<td th:text="*{tempRepairingForm.reproducibility}"></td>
 						</tr>
 						<tr>
 							<th>修理実施内容</th>
+							<input type="hidden" th:field="*{tempRepairingForm.repairDetails}">
 							<td th:text="*{tempRepairingForm.repairDetails}"></td>
 						</tr>
 						<tr>
 							<th>修理区分</th>
+							<input type="hidden" th:field="*{tempRepairingForm.classification}">
 							<td th:text="*{tempRepairingForm.classification}"></td>
 						</tr>
 						<tr>
 							<th>備考</th>
+							<input type="hidden" th:field="*{tempRepairingForm.remarks}">
 							<td th:text="*{tempRepairingForm.remarks}"></td>
 						</tr>
 					</table>
 				</div>
 				<div id="tempUsedItemsList">
-					<label>使用部品報告書</label>
+					<h4>使用部品報告書</h4>
 					<table id="usedItemsReportTable">
 						<thead>
 							<tr>
@@ -91,17 +118,21 @@
 						<tbody>
 							<tr th:each="tempUsedItem, stat : *{tempUsedItemsList}">
 								<td th:text="${stat.index+1}"></td>
-								<td th:text="${tempUsedItem.itemNo}"></td>
-								<td id="itemName"></td>
-								<td th:text="${tempUsedItem.quantity}"></td>
+								<td>
+									<input type="text" th:field="*{tempUsedItemsList[__${stat.index}__].itemNo}" th:value="*{tempUsedItemsList[__${stat.index}__].itemNo}" readonly>
+								</td>
+								<td >
+									<input type="text" th:field="*{tempUsedItemsList[__${stat.index}__].itemName}" th:value="*{tempUsedItemsList[__${stat.index}__].itemName}" readonly>
+								</td>
+								<td >
+									<input type="text" th:field="*{tempUsedItemsList[__${stat.index}__].quantity}" th:value="*{tempUsedItemsList[__${stat.index}__].quantity}" readonly>
+								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</form>
-
-
 	</div>
 
 
