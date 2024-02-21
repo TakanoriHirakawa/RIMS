@@ -7,13 +7,18 @@
 </head>
 
 <body>
-	<div layout:fragment="header2" >
-		<h2>&LT;修理履歴&GT;修理詳細入力画面</h2>
+	<div layout:fragment="header2">
+		<h2>&LT;修理履歴&GT;修理報告に成功しました</h2>
 	</div>
 	<div layout:fragment="content">
-		<form method="post" th:action="@{/repair_report/checkReport}">
-			<input type="submit" value="報告書確認画面へ" class="btn btn-primary" />
+		<form method="get" th:action="@{/repair_report/home}">
+			<button type="submit" class="btn btn-light">HOME画面に戻る</button>
 		</form>
+		
+		<form method="post" th:action="@{/repair_report/scrapItemsReport}">
+			<button type="submit" class="btn btn-light">仕損品報告画面へ</button>
+		</form>
+		
 	</div>
 </body>
 

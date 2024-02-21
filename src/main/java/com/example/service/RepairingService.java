@@ -209,8 +209,9 @@ public class RepairingService {
 		String author = findResult.get().getUserName();
 		repairingData.setAuthor(author);
 		repairingData.setCreationTimeStamp(LocalDateTime.now());
-				
-		//repairingRepository.save(repairingData);	
+		
+		log.info("repairingRepository.save is success");
+		repairingRepository.save(repairingData);	
 	}
 	
 	/**

@@ -27,7 +27,7 @@ public class SecurityConfig {
 					.requestMatchers("/login").permitAll()//無制限に許可するリクエスト
 					.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()//デフォルト位置の静的リソースの許可
 					.anyRequest().authenticated()
-					);
+					) ;
 		
 		return http.build();
 	}
