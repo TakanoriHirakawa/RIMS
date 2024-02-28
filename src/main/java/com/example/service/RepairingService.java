@@ -216,6 +216,7 @@ public class RepairingService {
 	
 	/**
 	 * 修理報告書の内容を登録するメソッド
+	 * 更新するDBテーブル：inventory_log / used_items_report / m_inventory  
 	 * @param tempUsedItemsList：使用部品報告書(List<TempUsedItemsReportForm>)の情報
 	 * @param ログインuser情報
 	 * */
@@ -260,6 +261,7 @@ public class RepairingService {
 			inventory.setStock(currentInventoryLog.getStockAtTheTime());
 			inventory.setChanger(currentUser);
 			inventory.setUpadateTimeStamp(now);
+			
 			mInventoryRepository.save(inventory);
 		}
 	}
