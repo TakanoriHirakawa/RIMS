@@ -28,10 +28,10 @@
 						<form method="get" th:action="@{/repair_report/home}">
 							<button type="submit" class="btn btn-light">修理報告</button>
 						</form>
-						<form method="post" th:action="@{/repair_report/estimate}">
+						<form method="get" th:action="@{/repair_report/estimate}">
 							<button type="submit" class="btn btn-light">見積</button>
 						</form>
-						<form method="post" th:action="@{/repair_report/scrapItemsReport}">
+						<form method="get" th:action="@{/repair_report/scrapItemsReport}">
 							<button type="submit" class="btn btn-light">仕損品報告</button>
 						</form>
 					</div>
@@ -49,16 +49,16 @@
 				<div id="collapseCategory2" class="accordion-collapse collapse" aria-labelledby="category2"
 					data-bs-parent="#categoryAccordion">
 					<div class="accordion-body">
-						<form method="post" th:action="@{/inventory/inventory}">
+						<form method="get" th:action="@{/inventory/inventory}">
 							<button type="submit" class="btn btn-light">物品データ</button>
 						</form>
-						<form method="post" th:action="@{/inventory/order_items}">
+						<form method="get" th:action="@{/inventory/order_items}">
 							<button type="submit" class="btn btn-light">発注</button>
 						</form>
 						<form method="get" th:action="@{/inventory/receiving_items}">
 							<button type="submit" class="btn btn-light">入庫</button>
 						</form>
-						<form method="post" th:action="@{/inventory/register_item}">
+						<form method="get" th:action="@{/inventory/register_item}">
 							<button type="submit" class="btn btn-light">物品登録</button>
 						</form>
 					</div>
@@ -74,7 +74,7 @@
 
 			<!-- Admin -->
 			<th:block th:if="${isAdmin}">
-				<form method="post" th:action="@{/repair_report/scrapItemsReport}">
+				<form method="get" th:action="@{/admin/adminHome}">
 					<button type="submit" class="btn btn-light">Admin</button>
 				</form>
 			</th:block>

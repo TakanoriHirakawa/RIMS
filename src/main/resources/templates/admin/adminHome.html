@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+	
+<head>
+<meta charset="UTF-8">
+<title>ユーザー登録画面</title>
+</head>
+<body>
+<body>
+	<div layout:fragment="contentsHeader">
+		<h2>&LT;Admin権限&GT;HOME画面</h2>
+	</div>
+	<div layout:fragment="content">
+		<form method="get" th:action="@{/admin/admin_resister/signup}">
+			<input type="submit" class="btn btn-primary" value="ユーザー登録">
+		</form>
+		
+	</div>
+</body>
+
+</body>
+</html>

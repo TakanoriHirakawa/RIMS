@@ -16,7 +16,7 @@
 		<h2>&LT;在庫管理&GT;物品名_詳細</h2>
 	</div>
 	<div layout:fragment="content">
-		<form method="post" th:action="@{/inventory/inventory}">
+		<form method="get" th:action="@{/inventory/inventory}">
 			<input type="submit" value="物品一覧に戻る" class="btn btn-primary" />
 		</form>
 		<form th:object="${itemDetails}">

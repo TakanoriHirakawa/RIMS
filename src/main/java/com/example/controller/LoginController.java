@@ -6,6 +6,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.constant.MessageConst;
@@ -31,7 +32,7 @@ public class LoginController {
 	/**
 	 * 初期表示
 	 * @param model 
-	 * @param form 入力情報
+	 * @param error：ログイン認証時にエラーが発生した場合のパラメータ
 	 * @return 初期表示画面（/login/login.html）
 	 * */
 	@GetMapping("/login")
@@ -45,5 +46,14 @@ public class LoginController {
         }
 		return "/login";
 	}
+	
+	/**
+	 * ログアウトの処理
+	 * */
+	@PostMapping("/logout")
+	public String getLogout() {
+		return "redirect:/login";
+	}
+
 
 }

@@ -1,5 +1,7 @@
 package com.example.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,18 +23,24 @@ import lombok.Data;
 @Data
 public class M_User {
 	
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id; 
-	
 	@Id
 	@Column(name="user_id")
 	private String userId;
-	
 	@Column(name="user_name")
 	private String userName;
-
-	private String password;
 	
+	//TODO：桁数指定を設定
+	private String password;
 	@Column(name="fk_authority_id")
 	private Integer fkAuthorityId;
+	
+	private String author;
+	@Column(name = "creation_timestamp")
+	private LocalDateTime creationTimeStamp;
+	private String changer;
+	@Column(name = "update_timestamp")
+	private LocalDateTime upadateTimeStamp;
+	
 }

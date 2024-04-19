@@ -15,8 +15,13 @@ public class TempRecevingItemList {
 	
 	public  TempRecevingItemList () {
 		this.recevingItemList = new ArrayList<>();
+		this.initializeList(recevingItemList);
+	}
+	
+	public void initializeList(List<RecevingItem> recevingItemList){
 		for(int i =0 ;i<50;i++) {
 			this.recevingItemList.add(new RecevingItem());
 		}
+
 	}
 }

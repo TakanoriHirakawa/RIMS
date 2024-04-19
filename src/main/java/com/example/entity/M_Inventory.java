@@ -30,7 +30,6 @@ import lombok.Data;
 @Data
 public class M_Inventory {
 	@Id
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column(name="fk_product_id")

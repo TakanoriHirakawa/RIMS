@@ -163,10 +163,10 @@ public class RepairReportController {
 	}
 	/**
 	 *repair_report/checkReportsのレスポンス（post）
-	 *@param tempRepairingForm：home.htmlでの入力内容
-	 *@param List：usedItemsReport.htmlでの入力内容
+	 *@param tempReports：home.htmlおよびusedItems.htmlでの入力内容
 	 *@return repair_report/checkReports.html
-	 *前画面（home.html）からtempRepairingFormの引き継ぎ・保持
+	 *
+	 *入力内容確認画面の表示
 	 * */
 	@PostMapping("/checkReports")
 	public String postCheckReport(Model model,
@@ -181,6 +181,12 @@ public class RepairReportController {
 		return "repair_report/checkReports";
 	}
 	
+	/**
+	 * checkReportsにて確認した内容をDBに登録する処理
+	 * @param tempReports：home.htmlおよびusedItems.htmlでの入力内容
+	 * @return  repair_report/scrapItemsReport.html
+	 * */
+	
 	@PostMapping("/resistReport")
 	public String postResistReport(Model model,
 			@ModelAttribute("tempReports") TempReports tempReports,
@@ -190,19 +196,23 @@ public class RepairReportController {
 		model.addAttribute("isAdmin", isAdmin);
 
 		service.resistReports(tempReports,user);
-		
 		return "repair_report/scrapItemsReport";
 	}
 
-	@PostMapping("/scrapItemsReport")
-	public String getScrapItemsReport() {
-		
-		return "repair_report/scrapItemsReport";
+	@GetMapping("/scrapItemsReport")
+	public String getScrapItemsReport(Model model,	@AuthenticationPrincipal User user) {
+		boolean isAdmin = user.getAuthorities().stream()
+				.allMatch(authority -> authority.getAuthority().equals("admin"));
+		model.addAttribute("isAdmin", isAdmin);
+		return "error/inPreparation";
 	}
 
-	@PostMapping("/estimate")
-	public String getEstimate() {
-		return "repair_report/estimate";
+	@GetMapping("/estimate")
+	public String getEstimate(Model model,	@AuthenticationPrincipal User user) {
+		boolean isAdmin = user.getAuthorities().stream()
+				.allMatch(authority -> authority.getAuthority().equals("admin"));
+		model.addAttribute("isAdmin", isAdmin);
+		return "error/inPreparation";
 	}
 	
     @ExceptionHandler(Exception.class)

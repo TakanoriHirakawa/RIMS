@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+	
+<head>
+	<meta charset="UTF-8">
+	<title>ユーザー登録画面</title>
+	<script th:src="@{/js/admin/admin_resister/signup.js}"></script>
+
+</head>
+<body>
+	<div layout:fragment="contentsHeader">
+		<h2>&LT;Admin権限&GT;ユーザー登録</h2>
+	</div>
+	<div layout:fragment="content">
+		<div id="buttonAria">
+			<input type="button" class="btn btn-primary" value="入力チェック" form="inputAria" id="checkButton" >
+			<input type="hidden" class="btn btn-primary" value="登録" form="inputAria" id="submitButton">
+		</div>
+		<div>
+			<form id="inputAria" method="post" th:action="@{/admin/admin_resister/signup/resistUser}" th:object="${signupForm}">
+				<div>
+					<label>ユーザーID</label>
+					<input type="text" th:field="*{userId}"  id="userIdInput" required>
+					<span id="checkUserIdResult"></span>
+				</div>
+				<div>
+					<label>ユーザー名</label>
+					<input type="text" th:field="*{userName}" required>
+				</div>
+				<span>validation</span>
+				<div>
+					<label>パスワード</label>
+					<input type="password" th:field="*{password}" required>
+				</div>
+				<span>validation</span>
+				<div>
+					<input type="radio" name="authority" th:text="管理者" th:value="1" th:field="*{fkAuthorityId}" required>
+					<input type="radio" name="authority" th:text="一般" th:value="2" th:field="*{fkAuthorityId}" required>
+				</div>
+				<span>validation</span>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>
