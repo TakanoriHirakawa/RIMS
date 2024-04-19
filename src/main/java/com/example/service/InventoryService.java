@@ -21,9 +21,11 @@ import com.example.repository.M_ProductRepository;
 import com.example.repository.M_UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class InventoryService {
 	
 	/**m_userテーブルDAO*/
@@ -56,8 +58,12 @@ public class InventoryService {
 	public Optional<M_Inventory> findRecodeByItemNo(String itemNo) {
 		 return  mInventoryRepository.findByItemNo(itemNo);
 	}
-
-	public void registItem(InventoryForm form) {
+	
+	/**
+	 * DBに新たに物品を登録
+	 * @param ：入力内容
+	 * */
+	public void saveItem(InventoryForm form) {
 		M_Inventory result = new M_Inventory();
 		result.setFkProductId(form.getFkProductId());
 		result.setItemNo(form.getItemNo());
@@ -70,10 +76,9 @@ public class InventoryService {
 		result.setStatusDone(form.getStatusDone());
 		result.setStatusUnable(form.getStatusUnable());
 		result.setRemarks(form.getRemarks());
-		
-		System.out.println(result);
-		
+
 		mInventoryRepository.save(result);
+		log.info("新規物品登録 / 図番：" + result.getItemNo());
 	}
 	/**
 	 * receiving_items.htmlに引渡すformオブジェクト
@@ -87,7 +92,7 @@ public class InventoryService {
 	/**
 	 * 入庫情報の登録メソッド
 	 * */
-	public void resistRecevingItems(TempRecevingItemList tempRecevingItemList,@AuthenticationPrincipal User user) {
+	public void saveRecevingItems(TempRecevingItemList tempRecevingItemList,@AuthenticationPrincipal User user) {
 		for (RecevingItem recevingItem : tempRecevingItemList.getRecevingItemList()) {
 			if(recevingItem.getItemNo().equals("")) {
 				break;
@@ -117,6 +122,49 @@ public class InventoryService {
 			mInventoryRepository.save(inventory);
 		}
 		
+	}
+	
+	/**
+	 * 引数の入庫物品リストを初期化
+	 * @param tempReceivingItemList
+	 * */
+	public void renewRecevingItems(TempRecevingItemList tempReceivingItemList) {
+		tempReceivingItemList.getRecevingItemList().clear();
+		tempReceivingItemList.initializeList(tempReceivingItemList.getRecevingItemList());
+	}
+	
+	/**
+	 * 図番の重複チェック
+	 * @param itemNo ：図番
+	 * @return boolean型の結果（重複ありでtrue）
+	 * */
+	public boolean isDuplicate(String itemNo) {
+		boolean result=false;
+		//重複チェック
+		Optional<M_Inventory>findResult = mInventoryRepository.findByItemNo(itemNo);
+		if(findResult.isPresent()) {
+			result=true;
+		}	
+		return result;
+	}
+	
+	/**
+	 * 物品登録時のnull,重複Check
+	 * @param form : 入力内容
+	 * @return result：結果(Errorあり：true)
+	 * */
+	public boolean hasErrorInputData(InventoryForm form) {
+		boolean hasError = false;
+		//null,""チェック
+		if (form==null) {
+			hasError=true;
+		}else if(form.getItemNo()==null || form.getItemNo().equals("")) {
+			hasError = true;
+		}else if(form.getItemName()==null || form.getItemName().equals("")) {
+			hasError = true;
+		}
+		hasError=isDuplicate(form.getItemNo());
+		return hasError;
 	}
 
 

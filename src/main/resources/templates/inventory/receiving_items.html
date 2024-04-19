@@ -5,6 +5,14 @@
 
 <head>
 	<meta charset="utf-8">
+	
+	<!--css個別読込-->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/inventory/receivingItems.css}">
+	
+	<!--js個別読込-->
+	<script th:src="@{/js/inventory/receivingItemsFunc.js}"></script>
+	<script th:src="@{/js/inventory/receivingItems.js}"></script>
+	
 </head>
 
 <body>
@@ -31,14 +39,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="recevingitem, stat: *{recevingItemList}">
-							<td th:text="${stat.index + 1}"></td>
+						<tr th:each="recevingitem, stat: *{recevingItemList}" th:id="'row_'+${stat.index+1}" th:class="${stat.index > 0} ? 'hidden-row'">
+							<td th:id="'SEQ_'+${stat.index+1}"th:text="${stat.index + 1}"></td>
 							<td>
-								<input id="itemNo" type="text" th:field="*{recevingItemList[__${stat.index}__].itemNo}">
+								<input th:id="'itemNo_'+${stat.index + 1}" type="text" th:field="*{recevingItemList[__${stat.index}__].itemNo}">
 							</td>
-							<td id="itemName"></td>
+							<td th:id="'itemName_'+${stat.index + 1}"></td>
 							<td>
-								<input id="itemNo" type="text" th:field="*{recevingItemList[__${stat.index}__].quantity}">
+								<input th:id="'quantity_'+${stat.index + 1}" type="text" th:field="*{recevingItemList[__${stat.index}__].quantity}">
 							</td>
 						</tr>
 					</tbody>

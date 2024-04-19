@@ -7,8 +7,8 @@
 	<meta charset="utf-8">
 	
 	<!--js個別読込-->
-	<script th:src="@{/js/inventory/register_item.js}"></script>
-	<script th:src="@{/js/inventory/register_itemFunc.js}"></script>
+	<script th:src="@{/js/inventory/regist_items.js}"></script>
+	<script th:src="@{/js/inventory/regist_itemsFunc.js}"></script>
 
 </head>
 
@@ -18,7 +18,7 @@
 	</div>
 	<div layout:fragment="content">
 		<form >
-			<input type="button" value="登録" class="btn btn-primary" onclick="registerItem.registerItems()">
+			<input type="button" value="確認" class="btn btn-primary" onclick="registerItem.registItem()">
 		</form>
 
 		<form id="itemDetails" th:object="${itemDetails}" th:action="@{/inventory/register_item/registItem}" method="post">
@@ -36,11 +36,11 @@
 					</tr>
 					<tr>
 						<td>図番</td>
-						<td><input type="text" th:field="*{itemNo}"></td>
+						<td><input type="text" th:field="*{itemNo}" class="nonNull"></td>
 					</tr>
 					<tr>
 						<td>物品名</td>
-						<td><input type="text" th:field="*{itemName}"></td>
+						<td><input type="text" th:field="*{itemName}" class="nonNull"></td>
 					</tr>
 					<tr>
 						<td>在庫数量</td>
@@ -56,11 +56,11 @@
 					</tr>
 					<tr>
 						<td>在庫上限</td>
-						<td><input type="number" min="0" th:field="*{stockMax}"></td>
+						<td><input type="number" min="0" th:field="*{stockMax}" ></td>
 					</tr>
 					<tr>
 						<td>在庫下限</td>
-						<td><input type="number" min="0" th:field="*{stockMin}"></td>
+						<td><input type="number" min="0" th:field="*{stockMin}" ></td>
 					</tr>
 					<tr>
 						<td>発注ステータス</td>

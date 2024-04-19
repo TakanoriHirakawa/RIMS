@@ -1,5 +1,7 @@
 package com.example.form;
 
+import com.example.constant.InitConst;
+
 import lombok.Data;
 /**
  * m_inventoryのformクラス
@@ -22,15 +24,14 @@ public class InventoryForm {
 	private Integer fkProductId;
 	private String itemNo;
 	private String itemName;
-	private Integer stock;
-	private Integer unitPrice;
-	private Integer basicQuantity;
-	private Integer stockMin;
-	private Integer stockMax;
+	private Integer stock=InitConst.INIT_STOCK;
+	private Integer unitPrice=InitConst.INIT_UNIT_PRICE;
+	private Integer basicQuantity=InitConst.INIT_BASIC_QUANTITY;
+	private Integer stockMin=InitConst.INIT_STOCK_MIN;
+	private Integer stockMax=InitConst.INIT_STOCK_MAX;
 	private Boolean statusDone=false;
 	private Boolean statusUnable=false;
 	private String statusMessage;
 	private String remarks;
-	
 	
 }

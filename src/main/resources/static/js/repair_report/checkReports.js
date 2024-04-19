@@ -6,14 +6,16 @@
  * ページ読込の際に、テーブルの2行目以降について
  * 図番の値がnull相当の場合にhidden非表示にする処理
  */
-//$(document).ready(function(){
-//    $("#usedItemsReportTable tbody tr").each(function(){
-//        var itemNo = $(this).find("td:nth-child(2)").text().trim(); // 図番の列の値を取得
-//        if(itemNo === '') { // もし図番の値が空（null相当）なら
-//            $(this).hide(); // その行を非表示にする
-//        }
-//    });
-//});
+    $(document).ready(function(){
+        // ページ読み込み時に実行される処理
+        $('#usedItemsReportTable tbody tr:gt(0)').each(function() {
+            var itemNoValue = $(this).find('input[type="text"][name*="itemNo"]').val();
+            // 図番の値がnull相当の場合に行を非表示にする
+            if (itemNoValue == null || itemNoValue.trim() === '') {
+                $(this).hide();
+            }
+        });
+    });
 
 /**
  *< button id ="backToHome" > がクリックされたときの処理
